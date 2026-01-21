@@ -1,6 +1,6 @@
-# AI Writing Skill - 基于花叔审校架构的AI写作技能
+# AI Proofreading Skill - 内容审校与AI味消除
 
-> 这是一个基于花叔 Claude Skills 最佳实践创建的 AI 内容审校技能包。
+> 这是一个专注于降低AI检测率、增加内容人味的专业写作技能包。
 
 ## 📦 包含内容
 
@@ -12,30 +12,34 @@
 
 ### 1. 三遍审校流程
 
-- **第一遍**：内容审校（事实、逻辑、原创性）
+系统化执行三层审校，确保内容自然流畅：
+
+- **第一遍**：内容审校（事实准确性、逻辑清晰性、原创性检查）
 - **第二遍**：风格审校（去除6大类AI腔）
-- **第三遍**：细节打磨（句子、段落、标点）
+- **第三遍**：细节打磨（句子节奏、段落长度、标点使用）
 
 ### 2. AI腔识别与改写
 
-系统化识别并改写以下AI腔：
+精准识别并系统化改写以下AI腔特征：
 
-- ✅ 套话连篇（"在当今XX飞速发展的时代"）
-- ✅ 机械句式（"首先...其次...最后..."）
-- ✅ 书面词汇（"显著"→"很明显"）
-- ✅ 结构机械（段落长度相近）
-- ✅ 态度中立（各打五十大板）
-- ✅ 细节缺失（抽象描述多，具体例子少）
+- ✅ **套话连篇**：删除"在当今XX飞速发展的时代"等空洞开场
+- ✅ **机械句式**：拆分"首先...其次...最后..."的僵硬结构
+- ✅ **书面词汇**：将"显著"→"很明显"、"实现"→"做到"
+- ✅ **结构机械**：打破段落长度对称，让节奏更自然
+- ✅ **态度中立**：表达明确观点，避免各打五十大板
+- ✅ **细节缺失**：加入真实时间、具体数字、具体案例
 
-### 3. 花叔渐进式披露架构
+### 3. 渐进式披露架构
 
-基于花叔提出的渐进式披露原则：
+采用业界最佳实践的渐进式披露设计：
 
-- **元数据层** (100 tokens)：Skill基本信息和触发条件
-- **指令层** (3000-5000 tokens)：详细执行流程和规则
-- **资源层** (按需加载)：参考资料和示例
+| 层级 | Token 消耗 | 加载时机 |
+|------|-----------|---------|
+| 元数据层 | ~100 tokens | 始终加载 |
+| 指令层 | 3000-5000 tokens | 按需加载 |
+| 资源层 | 按需 | 任务触发时 |
 
-**Token 效率提升：75%**
+**Token 效率提升：75%+**
 
 ## 🚀 快速安装
 
@@ -50,13 +54,13 @@ cp -r ai-proofreading ~/.claude/skills/
 
 ```bash
 cd ~/.claude/skills
-git clone https://github.com/ma2ong/AI-Writing-Skill.git
+git clone https://github.com/ma2ong/ai-proofreading.git
 ```
 
 ### 方式 3：子模块
 
 ```bash
-git submodule add https://github.com/ma2ong/AI-Writing-Skill .claude/skills/ai-proofreading
+git submodule add https://github.com/ma2ong/ai-proofreading.git .claude/skills/ai-proofreading
 ```
 
 ## 📖 使用方法
@@ -78,7 +82,7 @@ git submodule add https://github.com/ma2ong/AI-Writing-Skill .claude/skills/ai-p
 ## 📁 文件结构
 
 ```
-AI-Writing-Skill/
+ai-proofreading/
 ├── README.md              # 本文件
 ├── SKILL.md               # 核心Skill定义
 ├── references/            # 参考资料（按需加载）
@@ -88,9 +92,9 @@ AI-Writing-Skill/
 
 ## 🔗 相关资源
 
-- [花叔的 Claude Skills 指南](https://mp.weixin.qq.com/s/x9UpqjuYzLb7I2ZZ932bNg)
 - [Anthropic Skills 官方仓库](https://github.com/anthropics/skills)
 - [Agent Skills 开放标准](https://agentskills.io)
+- [Simon Willison: Skills vs MCP](https://simonwillison.net/2025/Oct/16/claude-skills/)
 
 ## 📝 更新日志
 
@@ -107,4 +111,4 @@ MIT License
 
 ---
 
-*Based on 花叔's Claude Skills architecture.*
+*让AI生成的内容读起来像真人写的。*
