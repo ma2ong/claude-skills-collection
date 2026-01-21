@@ -6,6 +6,7 @@
 
 | Skill | 触发关键词 | 核心功能 |
 |-------|-----------|---------|
+| **🚀 vibe-writer-pro** | 写文章、深度写作、专业写作 | **【NEW】** 终极全流程写作助手，融合 MapleShaw + 花叔 + Baoyu + 卡兹克 |
 | **vibe-writer** | 写作助手、Vibe Writing、全流程写作 | 总控大脑，全流程自动化写作 |
 | **ai-proofreading** | 审校、AI味、人味、润色 | 三遍审校流程，系统化降低AI检测率 |
 | **image-generator** | 配图、生成图片 | AI图片生成 + 图床上传 |
@@ -40,6 +41,44 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 ---
 
 ## 📖 Skills 详解
+
+### 🚀 NEW: vibe-writer-pro - 终极全流程写作助手
+
+**功能**：融合多位大佬精华的完整写作系统，从选题到多平台分发的完整闭环。
+
+**融合特性**：
+- 🎯 **MapleShaw 的自动化流程**：10 步完整工作流（Brief → 调研 → 选题 → 初稿 → 审校 → 配图 → 分发）
+- 🎨 **花叔的审校体系**：三遍审校系统化降低 AI 味（内容 → 风格 → 细节）
+- 🖼️ **Baoyu 的视觉美学**：高质量配图设计，手绘风格封面 + 概念图
+- ✨ **卡兹克的 Vibe 文风**：像懂技术的老朋友聊天，平和真诚有理有据
+- 📚 **个人素材库集成**：自动调用真实案例，拒绝空洞说教
+- 🚀 **多平台分发**：一键生成 X/微博/小红书等平台内容
+
+**完整工作流（6 个阶段）**：
+1. **Phase 1: 需求理解与选题策划** - 深度调研 + 3 个差异化选题
+2. **Phase 2: 初稿创作（Vibe 风格）** - 真实案例驱动 + 数据支撑
+3. **Phase 3: 三遍审校** - 内容审校 → 风格审校 → 细节打磨
+4. **Phase 4: 视觉设计** - 封面图 + 章节配图 + 真实截图混合
+5. **Phase 5: 多平台分发** - X Thread + 微博 + 小红书
+6. **Phase 6: 最终交付** - 完整 Markdown + 配图 + 统计报告
+
+**启动指令**：
+```
+"启动 Vibe Writer Pro，我想写一篇关于 [主题] 的文章"
+
+# 快速模式（跳过选题）
+"用 Vibe Writer Pro 写一篇关于 [主题] 的文章，标题是 [标题]，直接开始写"
+
+# 审校模式（已有初稿）
+"用 Vibe Writer Pro 审校这篇文章"
+```
+
+**与 vibe-writer 的区别**：
+- vibe-writer-pro 是**完整的端到端系统**，包含选题、审校、配图、分发全流程
+- vibe-writer 是**轻量级写作助手**，专注于初稿创作和基础审校
+- 推荐优先使用 vibe-writer-pro 进行专业内容创作
+
+---
 
 ### 1. vibe-writer - 氛围感写作助手
 
@@ -163,6 +202,11 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 ```
 claude-skills-collection/
 ├── README.md                    # 本文件
+├── vibe-writer-pro/             # 【NEW】终极全流程写作助手
+│   ├── SKILL.md
+│   └── references/
+│       ├── vibe_style_guide.md  # Vibe 风格指南
+│       └── workflow_rules.md    # 工作流规则
 ├── vibe-writer/                 # 总控写作助手
 │   ├── SKILL.md
 │   └── references/              # 风格、视觉、工作流规则
@@ -199,6 +243,17 @@ claude-skills-collection/
 ---
 
 ## 📝 更新日志
+
+### v1.1.0 (2026-01-21)
+
+- 🚀 **NEW**: vibe-writer-pro - 终极全流程写作助手
+  - 融合 MapleShaw 自动化流程 + 花叔审校体系 + Baoyu 视觉美学 + 卡兹克 Vibe 文风
+  - 6 阶段完整工作流：选题 → 创作 → 审校 → 配图 → 分发 → 交付
+  - 真实案例驱动 + 系统化降低 AI 味
+  - 多平台分发能力（X/微博/小红书）
+- 📚 新增配套参考文档
+  - Vibe 风格指南（vibe_style_guide.md）
+  - 工作流规则（workflow_rules.md）
 
 ### v1.0.0 (2026-01-21)
 
