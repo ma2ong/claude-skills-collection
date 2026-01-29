@@ -363,15 +363,14 @@ description: |
 （继续列出所有配图）
 ```
 
-**步骤 4.3 - 调用 image-generator**
+**步骤 4.3 - 调用 baoyu-skills**
 
-调用 `image-generator` Skill 生成图片并上传图床：
+调用 `baoyu-skills` (如 `baoyu-article-illustrator`) 生成图片：
 
 ```
 【配图完成】
 
 生成图片：X 张
-图床上传：X 张
 Markdown 链接已生成
 
 ---
@@ -636,7 +635,7 @@ Markdown 链接已生成
 
 - `topic-generator`: 选题生成
 - `ai-proofreading`: AI 味审校
-- `image-generator`: 配图生成与上传
+- `baoyu-skills`: 配图生成
 - `content-converter`: 多平台分发
 - `personal-knowledge-search`: 素材库搜索
 

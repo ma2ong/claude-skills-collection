@@ -43,7 +43,7 @@ description: |
     *   **Body**：必须包含"举个例子"、"看这张图"、"代码是这样的"。
     *   **Value**：讲清楚来龙去脉 + 具体怎么做。
 6.  **视觉设计**：读取 `references/visual_guide.md`。
-    *   调用 `image-generator` (或 Nano Banana) 生成封面。
+    *   调用 `baoyu-skills` (或 Nano Banana) 生成封面。
     *   搜索或描述真实的产品截图。
 
 ### Phase 3: 审校与交付 (The Filter)
