@@ -1,0 +1,62 @@
+[
+  {
+    "id": "hotspot_001",
+    "title": "OpenAI 发布 GPT-4.5 - 推理能力提升 40%",
+    "platform": "Twitter",
+    "url": "https://twitter.com/example/status/123456",
+    "heat_score": 95,
+    "category": "AI",
+    "summary": "OpenAI 今日发布 GPT-4.5 模型，在推理能力、多模态处理和成本效率三方面实现重大突破，推理能力相比 GPT-4 提升 40%。",
+    "keywords": ["GPT-4.5", "OpenAI", "大模型", "推理能力"],
+    "collected_at": "2026-01-13T10:30:00Z",
+    "relevance_score": 10
+  },
+  {
+    "id": "hotspot_002",
+    "title": "Anthropic Claude 3.5 支持 200K 上下文窗口",
+    "platform": "Reddit",
+    "url": "https://reddit.com/r/MachineLearning/comments/example",
+    "heat_score": 88,
+    "category": "AI",
+    "summary": "Anthropic 宣布 Claude 3.5 Sonnet 支持 200K token 上下文窗口，并显著提升了代码生成和分析能力。",
+    "keywords": ["Claude", "Anthropic", "上下文窗口", "代码生成"],
+    "collected_at": "2026-01-13T09:15:00Z",
+    "relevance_score": 9
+  },
+  {
+    "id": "hotspot_003",
+    "title": "Meta 开源 Llama 3 - 70B 参数模型性能超越 GPT-3.5",
+    "platform": "Github",
+    "url": "https://github.com/meta-llama/llama3",
+    "heat_score": 92,
+    "category": "AI",
+    "summary": "Meta 开源 Llama 3 系列模型，70B 版本在多项基准测试中超越 GPT-3.5，并采用全新的训练方法。",
+    "keywords": ["Llama 3", "Meta", "开源", "大模型"],
+    "collected_at": "2026-01-13T08:45:00Z",
+    "relevance_score": 10
+  },
+  {
+    "id": "hotspot_004",
+    "title": "Midjourney V7 发布 - 图像生成逼真度大幅提升",
+    "platform": "Product Hunt",
+    "url": "https://producthunt.com/posts/midjourney-v7",
+    "heat_score": 85,
+    "category": "AI",
+    "summary": "Midjourney V7 正式发布，在人物肖像、手部细节、文字渲染等方面取得突破性进展。",
+    "keywords": ["Midjourney", "图像生成", "AI绘画"],
+    "collected_at": "2026-01-13T11:00:00Z",
+    "relevance_score": 8
+  },
+  {
+    "id": "hotspot_005",
+    "title": "Google Gemini Ultra 在医疗诊断测试中达到专家级水平",
+    "platform": "The Information",
+    "url": "https://theinformation.com/articles/example",
+    "heat_score": 90,
+    "category": "AI",
+    "summary": "Google 发布研究报告，Gemini Ultra 在医疗诊断标准测试中达到医学专家级别表现。",
+    "keywords": ["Gemini", "Google", "医疗AI", "诊断"],
+    "collected_at": "2026-01-13T07:30:00Z",
+    "relevance_score": 9
+  }
+]

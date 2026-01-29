@@ -1,0 +1,100 @@
+{
+  "review_id": "review_2026-01-13",
+  "review_date": "2026-01-13T12:30:00Z",
+  "source_file": "output/generated_topics/2026-01-13.json",
+  "overall_result": "PARTIAL",
+  "summary": {
+    "total_topics": 10,
+    "passed": 7,
+    "need_revision": 3,
+    "rejected": 0,
+    "pass_rate": "70%"
+  },
+  "topic_reviews": [
+    {
+      "topic_id": "topic_001",
+      "topic_title": "GPT-4.5 的 3 个关键升级，如何改变你的 AI 应用开发？",
+      "result": "PASS",
+      "scores": {
+        "value": 9.0,
+        "uniqueness": 8.5,
+        "headline": 9.0,
+        "feasibility": 8.5,
+        "audience_fit": 9.0,
+        "total": 88.0
+      },
+      "strengths": [
+        "角度聚焦开发者实际应用，非常实用",
+        "标题具体明确，包含数字和价值主张",
+        "大纲结构清晰，从技术到应用层层递进",
+        "目标受众明确，洞察深入"
+      ],
+      "issues": [],
+      "revision_guidance": null
+    },
+    {
+      "topic_id": "topic_002",
+      "topic_title": "Llama 3 超越 GPT-3.5：开源大模型的逆袭时刻到了？",
+      "result": "PASS",
+      "scores": {
+        "value": 8.5,
+        "uniqueness": 9.0,
+        "headline": 8.5,
+        "feasibility": 8.0,
+        "audience_fit": 8.5,
+        "total": 85.0
+      },
+      "strengths": [
+        "从产业格局高度分析，视角独特",
+        "「安卓时刻」的类比很有传播力",
+        "兼顾技术和商业分析",
+        "预测性内容有吸引力"
+      ],
+      "issues": [],
+      "revision_guidance": null
+    },
+    {
+      "topic_id": "topic_003",
+      "topic_title": "AI 诊断达到专家级，但距离真正应用还有多远？",
+      "result": "REVISE",
+      "scores": {
+        "value": 8.0,
+        "uniqueness": 7.5,
+        "headline": 8.5,
+        "feasibility": 6.0,
+        "audience_fit": 7.0,
+        "total": 73.0
+      },
+      "strengths": [
+        "话题重要且有深度",
+        "标题设问式引发思考",
+        "关注现实挑战，不只是技术吹捧"
+      ],
+      "issues": [
+        {
+          "dimension": "feasibility",
+          "severity": "medium",
+          "description": "监管政策部分需要大量调研，可能难以获得足够详实的信息",
+          "suggestion": "建议调整重点，从「监管详解」转向「应用场景分析」，用具体案例代替政策细节"
+        },
+        {
+          "dimension": "audience_fit",
+          "severity": "low",
+          "description": "目标受众过于宽泛，医疗从业者和 AI 从业者的关注点差异较大",
+          "suggestion": "建议聚焦到 AI 从业者和产品经理，从「如何开发医疗 AI 产品」的角度切入"
+        }
+      ],
+      "revision_guidance": {
+        "priority": "medium",
+        "action_items": [
+          "调整内容重点：减少监管政策细节（30% → 15%），增加应用场景案例（20% → 35%）",
+          "缩小目标受众：主要面向 AI 从业者，医疗行业作为辅助视角",
+          "补充 2-3 个具体的 AI 医疗产品案例（如 AI 辅助影像诊断、AI 病历分析等）",
+          "标题可以更具体：「Gemini Ultra 通过医学测试，AI 医疗产品的 3 个落地方向」"
+        ],
+        "examples": "参考：Ada Health、Babylon Health 等 AI 医疗产品的发展路径"
+      }
+    }
+  ],
+  "reviewer_notes": "整体质量较高，通过率 70%。主要问题集中在可执行性和受众定位上。建议修改的选题都有很好的基础，稍作调整即可达标。特别注意：不要过度承诺难以获取的信息（如详细监管政策），多用可获得的案例和数据支撑论点。"
+}
