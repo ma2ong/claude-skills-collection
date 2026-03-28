@@ -6,14 +6,14 @@
 
 | Skill | 触发关键词 | 核心功能 |
 |-------|-----------|---------|
-| **🚀 vibe-writer-pro** | 写文章、深度写作、专业写作 | **【NEW】** 终极全流程写作助手，融合 MapleShaw + 花叔 + Baoyu + 卡兹克 |
-| **🎯 ai-topic-generator** | 开始选题生成、采集热点 | **【NEW】** 全自动选题系统：热点采集 → 选题生成 → 质量审核 |
-| **hotspot-collector** | 采集热点、全网热点 | 多平台热点采集（Twitter/Reddit/GitHub/微博/知乎） |
-| **topic-generator** | 选题、生成选题 | 基于热点生成高质量选题 |
-| **topic-reviewer** | 审核选题、选题质量 | 5维度审核，自动迭代优化 |
+| **🚀 vibe-writer-pro** | 写文章、深度写作、专业写作 | 终极全流程写作助手，融合 MapleShaw + 花叔 + Baoyu + 卡兹克，内置7维爆款质量门 |
+| **🎯 ai-topic-generator** | 开始选题生成、采集热点 | 全自动选题系统：热点采集 → 选题生成 → 质量审核 |
+| **hotspot-collector** | 采集热点、全网热点 | 多平台热点采集，互动量加权评分 + Top评论挖掘 |
+| **topic-generator** | 选题、生成选题 | 基于热点生成高质量选题，支持评论层挖角 + COMPARISON对比选题模式 |
+| **topic-reviewer** | 审核选题、选题质量 | 4维度审核（含传播潜力），自动迭代优化 |
 | **obsidian-exporter** | 导出选题、Obsidian | 将选题导出到 Obsidian 知识库 |
 | **vibe-writer** | 写作助手、Vibe Writing | 全流程自动化写作 |
-| **ai-proofreading** | 审校、AI味、人味、润色 | 三遍审校流程，系统化降低AI检测率 |
+| **ai-proofreading** | 审校、AI味、人味、润色 | 四遍审校流程，系统化降低AI检测率，内置7维传播力评估 |
 | **content-converter** | 转X、转微博、转小红书 | 长文转社交媒体内容 |
 | **personal-knowledge-search** | 素材、案例 | 搜索个人素材库，提供真实案例 |
 
@@ -50,7 +50,7 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 
 ## 📖 Skills 详解
 
-### 🎯 NEW: ai-topic-generator - 全自动选题系统
+### 🎯 ai-topic-generator - 全自动选题系统
 
 **一句话开始**：
 ```
@@ -69,7 +69,7 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 
 ```
 # 一键执行完整流程
-开始今日选题生成，今天是2026年1月29日
+开始今日选题生成，今天是2026年3月28日
 
 # 分步执行
 采集今日全网热点              # 使用 hotspot-collector
@@ -81,41 +81,39 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 
 执行完成后，系统会生成三个文件：
 
-**1. 热点数据** `output/daily_hotspots/2026-01-29.json`
+**1. 热点数据** `output/daily_hotspots/2026-03-28.json`
 ```json
 {
   "id": "hs-001",
   "title": "Apple选择Gemini而非ChatGPT为新一代Siri提供动力",
-  "platform": "Ars Technica",
+  "platform": "Twitter/Ars Technica",
+  "engagement": { "likes": 12400, "reposts": 3200, "comments": 890, "total": 16490 },
   "heat_score": 98,
+  "top_comments": [
+    { "text": "This is huge for Google's ad business...", "likes": 2100, "implied_angle": "Gemini接入苹果对谷歌广告收入的影响" }
+  ],
   "category": "AI/科技巨头"
 }
 ```
 
-**2. 生成选题** `output/generated_topics/2026-01-29.json`
+**2. 生成选题** `output/generated_topics/2026-03-28.json`
 ```json
 {
   "topic_id": "topic-001",
+  "topic_type": "COMPARISON",
   "rank": 1,
-  "headline": {
-    "primary": "苹果\"抛弃\"ChatGPT选择Gemini：万亿美元押注背后的三个真相"
-  },
+  "headline": { "primary": "Gemini vs ChatGPT：苹果押注背后，谁才是AI助手的真正赢家" },
   "core_angle": {
-    "angle_title": "为什么Apple放弃了ChatGPT？Gemini做对了什么",
-    "key_insights": [...]
+    "angle_title": "从高互动评论看：开发者最关心的不是功能，而是数据隐私",
+    "angle_from_comments": "角度来源：高互动评论"
   }
 }
 ```
 
-**3. 审核报告** `output/review_reports/2026-01-29.json`
+**3. 审核报告** `output/review_reports/2026-03-28.json`
 ```json
 {
-  "summary": {
-    "total_topics": 10,
-    "passed": 8,
-    "needs_revision": 2,
-    "overall_quality": "优秀"
-  }
+  "summary": { "total_topics": 10, "passed": 8, "needs_revision": 2, "overall_quality": "优秀" }
 }
 ```
 
@@ -143,11 +141,12 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 - ✨ **卡兹克的 Vibe 文风**：像懂技术的老朋友聊天
 - 📚 **个人素材库集成**：自动调用真实案例
 - 🚀 **多平台分发**：一键生成 X/微博/小红书等平台内容
+- 📊 **7维爆款质量门**：内置公众号爆款评估框架，低于5/7不得进入发布阶段
 
 **完整工作流（6 个阶段）**：
 1. **Phase 1: 需求理解与选题策划** - 深度调研 + 3 个差异化选题
 2. **Phase 2: 初稿创作（Vibe 风格）** - 真实案例驱动 + 数据支撑
-3. **Phase 3: 三遍审校** - 内容审校 → 风格审校 → 细节打磨
+3. **Phase 3: 三遍审校 + 7维质量门** - 内容审校 → 风格审校 → 细节打磨 → 爆款评估
 4. **Phase 4: 视觉设计** - 封面图 + 章节配图 + 真实截图混合
 5. **Phase 5: 多平台分发** - X Thread + 微博 + 小红书
 6. **Phase 6: 最终交付** - 完整 Markdown + 配图 + 统计报告
@@ -159,22 +158,46 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 
 ---
 
+### 📊 公众号爆款评估框架（7维）
+
+所有写作和审校 Skill 均内置以下爆款质量标准：
+
+| 维度 | 目标指标 | 核心公式 |
+|------|---------|---------|
+| **D1 标题与封面** | 打开率 ≥ 10% | 信息差 + 情绪触发 + 具体数字，命中 ≥ 2/3 |
+| **D2 钩子结构** | 完读率 ≥ 30% | 前3行给出"这篇和你有关"信号，无铺垫废话 |
+| **D3 内容密度节奏** | 收藏率 ≥ 3% | 段落2-4行，有可回收干货（清单/对比表/步骤） |
+| **D4 情绪设计** | 分享率 ≥ 5% | 触发愤怒/焦虑/自豪/感动至少一种 |
+| **D5 互动引导** | 评论率 ≥ 1% | 正文埋开放式问题，结尾显式互动引导 |
+| **D6 关注转化** | 吸粉率 1-3% | 系列感 / 资源钩子 / 人设差异化 |
+| **D7 传播裂变** | 二次传播 ≥ 60% | 至少1个可截图传播的信息单元（金句/数据图/对比表） |
+
+> 核心链路：**标题拉打开 → 钩子拉完读 → 密度拉收藏 → 情绪拉转发 → 引导拉评论 → 人设拉关注 → 裂变拉二次传播**
+
+---
+
 ### 其他 Skills
 
 #### 1. vibe-writer - 氛围感写作助手
 全流程自动化写作，从调研到发布一站式服务。
 
 #### 2. ai-proofreading - AI味审校
-系统化降低 AI 检测率，三遍审校流程去除 AI 腔。
+系统化降低 AI 检测率，**四遍审校**（内容→风格→细节→传播力），输出7维爆款达标报告。
 
 #### 3. hotspot-collector - 热点采集器
-多平台热点采集，支持 Twitter、Reddit、GitHub、微博、知乎等。
+
+多平台热点采集，升级特性：
+- **互动量加权评分**：`heat_score = 时效分×0.4 + 跨平台分×0.3 + 互动量分×0.3`
+- **Top评论挖掘**：采集前3高互动评论，自动提炼 `implied_angle`（暗示选题角度）
 
 #### 4. topic-generator - 选题生成器
-基于热点或需求生成高质量选题，包含角度挖掘和标题建议。
+
+基于热点生成高质量选题，升级特性：
+- **评论层挖角**：读取 `top_comments.implied_angle`，以真实读者最关心的角度作为优先切入点
+- **COMPARISON 模式**：检测到同赛道双热点时，自动生成"A vs B"对比选题（优先级排前3）
 
 #### 5. topic-reviewer - 选题审核官
-5维度评估选题质量，自动迭代优化直到通过审核。
+**4维度**评估（价值度35% + 独特性25% + 落地性25% + **传播潜力15%**），自动迭代优化直到通过审核。
 
 #### 6. obsidian-exporter - Obsidian 导出器
 将选题数据导出到 Obsidian 知识库，格式化为 Markdown。
@@ -222,31 +245,32 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 ```
 claude-skills-collection/
 ├── README.md                        # 本文件
-├── output/                          # 【NEW】选题系统输出目录
-│   ├── daily_hotspots/              # 每日热点数据
-│   ├── generated_topics/            # 生成的选题
+├── output/                          # 选题系统输出目录
+│   ├── daily_hotspots/              # 每日热点数据（含 engagement + top_comments）
+│   ├── generated_topics/            # 生成的选题（含 topic_type + comparison_subjects）
 │   └── review_reports/              # 审核报告
-├── ai-topic-generator/              # 【NEW】AI选题生成系统（总控）
+├── ai-topic-generator/              # AI选题生成系统（总控）
 │   └── SKILL.md
-├── hotspot-collector/               # 【NEW】热点采集器
+├── hotspot-collector/               # 热点采集器（互动量加权 + Top评论）
 │   └── SKILL.md
-├── topic-generator/                 # 【NEW】选题生成器（升级版）
+├── topic-generator/                 # 选题生成器（评论挖角 + COMPARISON模式）
 │   ├── SKILL.md
 │   └── memory/
 │       └── preferences.md
-├── topic-reviewer/                  # 【NEW】选题审核官
+├── topic-reviewer/                  # 选题审核官（4维度含传播潜力）
 │   └── SKILL.md
-├── obsidian-exporter/               # 【NEW】Obsidian导出器
+├── obsidian-exporter/               # Obsidian导出器
 │   └── SKILL.md
 ├── vibe-writer-pro/                 # 终极全流程写作助手
 │   ├── SKILL.md
 │   └── references/
+│       ├── viral-framework.md       # 公众号爆款7维评估框架（核心参考）
 │       ├── vibe_style_guide.md
 │       └── workflow_rules.md
 ├── vibe-writer/                     # 总控写作助手
 │   ├── SKILL.md
 │   └── references/
-├── ai-proofreading/                 # AI味审校
+├── ai-proofreading/                 # AI味审校（四遍审校 + 7维传播力）
 │   ├── SKILL.md
 │   ├── references/
 │   ├── scripts/
@@ -268,6 +292,17 @@ claude-skills-collection/
 ---
 
 ## 📝 更新日志
+
+### v2.1.0 (2026-03-28)
+
+- 📊 **NEW**: 引入公众号爆款评估框架（7维），全面整合进写作与选题流水线
+  - `vibe-writer-pro`：新增爆款质量门（D1-D7），低于5/7不得进入发布阶段
+  - `ai-proofreading`：新增第四遍传播力审校，输出7维达标报告
+  - `topic-reviewer`：新增传播潜力（15%权重）作为第4评分维度
+  - `vibe-writer-pro/references/viral-framework.md`：完整7维框架参考文档
+- 🔥 **NEW**: 借鉴 [last30days-skill](https://github.com/mvanhorn/last30days-skill) 升级热点与选题能力
+  - `hotspot-collector`：互动量加权评分公式 + Top3评论挖掘（含 implied_angle）
+  - `topic-generator`：评论层挖角（以高互动评论角度优先）+ COMPARISON 对比选题模式
 
 ### v2.0.0 (2026-01-29)
 
