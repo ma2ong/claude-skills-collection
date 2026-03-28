@@ -23,15 +23,9 @@ Phase 3: 三遍审校
     └─ 3.3 第三遍：细节打磨
          ↓
 Phase 4: 视觉设计
-    ├─ 4.0 内容分析 → 选择信息图类型
-    ├─ 4.1 封面图设计（HTML+CSS → PNG）
-    ├─ 4.2 信息图创作（HTML+CSS → PNG）
-    │    ├─ 4.2.1 编写 HTML 文件（900px 宽）
-    │    ├─ 4.2.2 启动本地 HTTP Server（port 8765）
-    │    ├─ 4.2.3 browser_resize + browser_navigate + browser_take_screenshot
-    │    └─ 4.2.4 复制 PNG 到 output/screenshots/
-    ├─ 4.3 AI 生成（可选，仅用于纯抽象概念）
-    └─ 4.4 图片清单输出（位置 + 文件名 + PNG 路径）
+    ├─ 4.1 分析配图需求
+    ├─ 4.2 生成配图提示词
+    └─ 4.3 调用 image-generator
          ↓
 Phase 5: 多平台分发
     ├─ 5.1 询问分发需求
@@ -61,34 +55,19 @@ Phase 6: 最终交付
 [等待用户回复]
 ```
 
-### Rule 2: 不跳过调研阶段，且调研模式必须匹配内容类型
+### Rule 2: 不跳过调研阶段
 
-**根据写作模式选择调研方式**：
-
-**热点新闻模式**（触发词：热点/时事/最新/刚发生/今天/昨天）：
-- [ ] 用 `opencli` 抓实时热榜（zhihu/weibo/twitter/hackernews 等）
-- [ ] 时效窗口：**72 小时内**，超时内容不引用
-- [ ] 跨平台交叉验证：同一话题出现在 2+ 平台才算可信热点
-- [ ] 调用 `personal-knowledge-search` 查找相关素材
-- [ ] opencli 失败时切换 Playwright 兜底
-
-**深度研究模式**（触发词：教程/原理/深度/怎么用）：
-- [ ] Web 搜索最新信息（过去 **6 个月**内）
+**必须完成的调研内容**:
+- [ ] 搜索最新信息（过去 6 个月内）
 - [ ] 找到至少 2 个真实案例
 - [ ] 收集至少 1 个数据支撑
 - [ ] 调用 `personal-knowledge-search` 查找个人素材库
 - [ ] 了解竞品内容的角度
 
-**直接写作模式**（用户已提供材料）：
-- [ ] 阅读理解全部材料
-- [ ] 调用 `personal-knowledge-search` 补充素材
-- [ ] 直接进入选题生成
-
 **❌ 不能**:
-- 热点文章用 web 搜索模拟热榜（结果不代表实时热度）
 - 直接开始写作，没有调研
 - 编造案例和数据
-- 热点文章引用 72 小时前的旧闻
+- 使用过时信息（超过 1 年）
 
 ### Rule 3: 三遍审校不能合并
 
@@ -114,45 +93,17 @@ Phase 6: 最终交付
 - 使用模糊的"最近"、"很多人"
 - 编造案例和数据
 
-### Rule 5: 配图必须以 HTML 信息图为主
+### Rule 5: 配图必须混合策略
 
-**配图优先级**（从高到低）:
-1. **封面图**（必须）：HTML+CSS 本地渲染 → Playwright 截图 → PNG
-2. **HTML 信息图**（优先）：时间线/对比图/流程图/数据图表/卡片网格
-3. **真实截图**（辅助）：Tweet 卡片/产品界面（用 HTML 模拟或 Playwright 截图）
-4. **AI 生成图**（最后手段）：仅限无法用 HTML 表达的纯抽象视觉概念
-
-**选择信息图类型规则**:
-
-| 内容类型 | 推荐图类型 | HTML 尺寸 |
-|---------|-----------|---------|
-| 事件经过/发展 | 时间线 Timeline | 900×500px |
-| 数据对比 | 柱状图/饼图（SVG） | 900×460px |
-| 系统架构/流程 | 架构流程图 | 900×460px |
-| 名词/术语拆解 | 标注分解图 | 900×420px |
-| 好坏/前后对比 | 左右对比双栏 | 900×480px |
-| 多方/多案例 | 卡片网格 | 900×480–520px |
-| 关键数字 | 数据统计展示 | 900×420px |
-| Tweet/社媒帖子 | Tweet 卡片模拟 | 560×自适应px |
-
-**Playwright 截图标准步骤**:
-```bash
-# 1. 启动本地服务（已运行则跳过）
-python -m http.server 8765 --directory output/screenshots &
-
-# 2. 调整视口（必须与 HTML body 尺寸完全匹配）
-browser_resize(width=900, height=<body_height>)
-
-# 3. 导航并截图
-browser_navigate("http://localhost:8765/<filename>.html")
-browser_take_screenshot(filename="output/screenshots/<filename>.png")
-```
+**配图组合**:
+1. **封面图**（必须）：AI 生成的概念图
+2. **章节配图**（可选）：AI 生成的概念图
+3. **真实截图**（必须）：产品界面/代码/数据图表
 
 **❌ 不能**:
+- 只用 AI 生成的图
+- 只用真实截图
 - 没有封面图
-- 所有配图都用 AI 生成（不可数据化、风格不统一）
-- 截图前不调用 browser_resize（导致空白区域）
-- HTML body 高度与实际内容不匹配（导致截断或空白）
 
 ### Rule 6: 多平台分发必须询问
 
@@ -334,40 +285,42 @@ AI 腔类型分布：
 状态：✅ 审校完成，准备配图
 ```
 
-### Phase 4.1 - 配图规划输出
+### Phase 4.2 - 配图方案输出
 
 ```
-【配图规划】
+【配图方案】
 
-文章主题色系：[蓝紫/红紫/绿色/橙色]
 需要生成：X 张图片
 
 ---
 
-| # | 文件名 | 类型 | 内容描述 | 尺寸 | 嵌入位置 |
-|---|--------|------|---------|------|---------|
-| 1 | cover-xxx.html | 封面图 | 标题+副标题+配色 | 900×500 | 文章开头 |
-| 2 | illus-xxx-timeline.html | 时间线 | 事件节点 X 个 | 900×500 | [章节名] |
-| 3 | illus-xxx-compare.html | 对比图 | 左[A] 右[B] | 900×480 | [章节名] |
-| ... | ... | ... | ... | ... | ... |
+### 图 1：封面图
+
+**用途**：文章封面
+**风格**：现代简约，科技感
+**提示词**：
+"[完整的 AI 图片生成提示词]"
 
 ---
 
-正在生成 HTML 文件并截图...
-```
+### 图 2：章节配图 - [章节名称]
 
-### Phase 4.2 - 截图流程输出
+**用途**：[章节] 配图
+**风格**：[风格描述]
+**提示词**：
+"[完整的 AI 图片生成提示词]"
 
-```
-【截图进度】
+---
 
-HTTP Server: http://localhost:8765 ✅
+[继续列出所有配图]
 
-| # | 文件 | 尺寸 | 状态 |
-|---|------|------|------|
-| 1 | cover-xxx.html | 900×500 | ✅ 完成 → cover-xxx.png |
-| 2 | illus-xxx-timeline.html | 900×500 | ✅ 完成 → illus-xxx-timeline.png |
-| 3 | illus-xxx-compare.html | 900×480 | ✅ 完成 → illus-xxx-compare.png |
+---
+
+需要真实截图：
+- [截图 1 描述]
+- [截图 2 描述]
+
+正在调用 image-generator 生成图片...
 ```
 
 ### Phase 4.3 - 配图完成输出
@@ -375,25 +328,25 @@ HTTP Server: http://localhost:8765 ✅
 ```
 【配图完成】
 
-生成图片：X 张（HTML+CSS 渲染）
-输出目录：output/screenshots/
-Obsidian 嵌入语法：![[date/filename.png]]
+生成图片：X 张
+图床上传：X 张
+Markdown 链接已生成
 
 ---
 
-### 图片清单
+### 配图列表
 
-| 位置 | 文件名 | 类型 | PNG 路径 |
-|-----|--------|------|---------|
-| 封面 | cover-xxx.png | 封面图 | output/screenshots/cover-xxx.png |
-| [章节] | illus-xxx-timeline.png | 时间线 | output/screenshots/illus-xxx-timeline.png |
-| [章节] | illus-xxx-compare.png | 对比图 | output/screenshots/illus-xxx-compare.png |
+| 位置 | 描述 | 链接 |
+|-----|------|------|
+| 封面 | [标题] | ![cover](URL) |
+| 章节 1 | [小标题] | ![](URL) |
+| 章节 2 | [小标题] | ![](URL) |
 
 ---
 
 【完整文章（含配图）】
 
-[输出包含配图的完整 Markdown 文章，图片用 ![[filename.png]] 语法嵌入]
+[输出包含配图的完整 Markdown 文章]
 ```
 
 ### Phase 5.2 - 多平台分发输出
@@ -502,14 +455,11 @@ Obsidian 嵌入语法：![[date/filename.png]]
 
 ### 配图质量检查
 
-- [ ] 封面图 HTML 已生成并截图为 PNG
-- [ ] 每篇文章信息图不少于 3 张（建议 5-8 张）
-- [ ] HTML body 尺寸与 browser_resize 参数完全匹配
-- [ ] 截图无空白区域（若有，检查 body 高度）
-- [ ] 信息图类型与内容匹配（时间线/对比/流程/数据等）
-- [ ] 文件命名规范：`cover-[slug].png` / `illus-[slug]-[type].png`
-- [ ] PNG 已复制到正确的输出目录
-- [ ] Obsidian embed 语法 `![[date/filename.png]]` 嵌入文章
+- [ ] 封面图已生成
+- [ ] 章节配图已配齐（如需要）
+- [ ] 真实截图已准备（如需要）
+- [ ] 所有图片已上传图床
+- [ ] Markdown 链接已嵌入文章
 
 ### 分发质量检查
 
@@ -545,20 +495,13 @@ Obsidian 嵌入语法：![[date/filename.png]]
 4. 生成 v2 版本
 5. 重新进入审校流程
 
-### 情况 4: HTML 截图出现空白区域
+### 情况 4: 配图生成失败
 
 **处理流程**:
-1. 检查 HTML 文件中 `body` 的 `height` 值
-2. 调用 `browser_resize(width, height)` 时确保与 `body` 尺寸完全一致
-3. 如果内容动态撑开（flexbox/grid），在 HTML 中固定 `height` 后重新截图
-4. 检查 HTTP server 是否正在运行（`curl -s http://localhost:8765/`）
-
-### 情况 5: HTTP Server 启动失败
-
-**处理流程**:
-1. 检查 8765 端口是否被占用：`netstat -ano | grep 8765`
-2. 改用其他端口（如 8766）并更新导航 URL
-3. 或直接用 `file:///` 协议打开本地 HTML 文件（但 CORS 可能受限）
+1. 检查提示词是否合理
+2. 调整提示词重新生成
+3. 如果仍然失败，建议使用其他图片来源
+4. 询问用户是否有替代图片
 
 ## 时间管理建议
 
@@ -571,7 +514,7 @@ Obsidian 嵌入语法：![[date/filename.png]]
 | Phase 1.3 选题生成 | 3-5 分钟 | ❌ |
 | Phase 2 初稿创作 | 10-20 分钟 | ⚠️ |
 | Phase 3 三遍审校 | 8-15 分钟 | ❌ |
-| Phase 4 视觉设计（HTML+截图） | 10-20 分钟 | ✅ |
+| Phase 4 视觉设计 | 5-10 分钟 | ✅ |
 | Phase 5 多平台分发 | 3-5 分钟 | ✅ |
 
 **注意**:
