@@ -6,13 +6,14 @@
 
 | Skill | 触发关键词 | 核心功能 |
 |-------|-----------|---------|
-| **🚀 vibe-writer-pro** | 写文章、深度写作、专业写作 | 终极全流程写作助手，融合 MapleShaw + 花叔 + Baoyu + 卡兹克，内置7维爆款质量门 |
+| **🚀 vibe-writer-pro** | 写文章、深度写作、专业写作 | 终极全流程写作助手，卡兹克方法论深度落地（HKR质检/四层自检L1-L4/AI角色边界），内置7维爆款质量门 |
+| **✍️ khazix-writer** | 卡兹克风格、公众号长文 | 卡兹克公众号长文写作专版，4000-8000字，五种内容原型，活人感优先 |
 | **🎯 ai-topic-generator** | 开始选题生成、采集热点 | 全自动选题系统：热点采集 → 选题生成 → 质量审核 |
 | **hotspot-collector** | 采集热点、全网热点 | 多平台热点采集，互动量加权评分 + Top评论挖掘 |
 | **topic-generator** | 选题、生成选题 | 基于热点生成高质量选题，支持评论层挖角 + COMPARISON对比选题模式 |
 | **topic-reviewer** | 审核选题、选题质量 | 4维度审核（含传播潜力），自动迭代优化 |
 | **obsidian-exporter** | 导出选题、Obsidian | 将选题导出到 Obsidian 知识库 |
-| **vibe-writer** | 写作助手、Vibe Writing | 全流程自动化写作 |
+| **vibe-writer** | 写作助手、Vibe Writing | 全流程自动化写作，四层自检（L1-L4）+ HKR选题质检 |
 | **ai-proofreading** | 审校、AI味、人味、润色 | 四遍审校流程，系统化降低AI检测率，内置7维传播力评估 |
 | **content-converter** | 转X、转微博、转小红书 | 长文转社交媒体内容 |
 | **personal-knowledge-search** | 素材、案例 | 搜索个人素材库，提供真实案例 |
@@ -135,10 +136,14 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 **功能**：融合多位大佬精华的完整写作系统，从选题到多平台分发的完整闭环。
 
 **融合特性**：
-- 🎯 **MapleShaw 的自动化流程**：10 步完整工作流
-- 🎨 **花叔的审校体系**：三遍审校系统化降低 AI 味
-- 🖼️ **Baoyu 的视觉美学**：高质量配图设计
-- ✨ **卡兹克的 Vibe 文风**：像懂技术的老朋友聊天
+- 🎯 **MapleShaw 的自动化流程**：完整工作流（需求理解 → 调研 → 选题 → 创作 → 审校 → 配图 → 分发）
+- 🎨 **花叔的审校体系**：系统化降低 AI 味
+- 🖼️ **Baoyu 的视觉美学**：HTML 信息图 + 真实截图混合配图
+- ✨ **卡兹克写作方法论（深度落地）**：
+  - HKR 选题质检（有趣/信息量/共鸣，及格两项）
+  - 四层自检 L1-L4（禁词禁标点 → 节奏口语 → 内容质量 → 活人感）
+  - 禁用标点规则（冒号/破折号→逗号，禁叙述类bullet point）
+  - AI 角色边界（AI补证据，人来定观点）
 - 📚 **个人素材库集成**：自动调用真实案例
 - 🚀 **多平台分发**：一键生成 X/微博/小红书等平台内容
 - 📊 **7维爆款质量门**：内置公众号爆款评估框架，低于5/7不得进入发布阶段
@@ -176,10 +181,29 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 
 ---
 
+### ✍️ khazix-writer - 卡兹克公众号长文写作
+
+**来源**：[KKKKhazix/khazix-skills](https://github.com/KKKKhazix/khazix-skills)（1k+ stars）
+
+**定位**："有见识的普通人在认真聊一件打动他的事。"
+
+**核心特色**：
+- 五大价值观底色（永远保持好奇 / 讲人话 / 真诚是唯一捷径）
+- 五种内容原型（调查实验型 / 产品体验型 / 现象解读型 / 工具分享型 / 整活创意型）
+- HKR 选题质检框架
+- 四层自检（L1硬性规则 → L2节奏 → L3内容质量 → L4活人感）
+
+**启动指令**：
+```
+"用卡兹克风格写一篇关于 [主题] 的公众号文章"
+```
+
+---
+
 ### 其他 Skills
 
 #### 1. vibe-writer - 氛围感写作助手
-全流程自动化写作，从调研到发布一站式服务。
+全流程自动化写作，四层自检（L1-L4）+ HKR 选题质检 + 多平台分发。
 
 #### 2. ai-proofreading - AI味审校
 系统化降低 AI 检测率，**四遍审校**（内容→风格→细节→传播力），输出7维爆款达标报告。
@@ -261,13 +285,18 @@ claude-skills-collection/
 │   └── SKILL.md
 ├── obsidian-exporter/               # Obsidian导出器
 │   └── SKILL.md
-├── vibe-writer-pro/                 # 终极全流程写作助手
+├── vibe-writer-pro/                 # 终极全流程写作助手（卡兹克方法论深度落地）
 │   ├── SKILL.md
 │   └── references/
-│       ├── viral-framework.md       # 公众号爆款7维评估框架（核心参考）
-│       ├── vibe_style_guide.md
-│       └── workflow_rules.md
-├── vibe-writer/                     # 总控写作助手
+│       ├── viral-framework.md       # 公众号爆款7维评估框架
+│       ├── vibe_style_guide.md      # L1-L4四层自检清单
+│       └── workflow_rules.md        # Rule 6 HKR质检 + Rule 7 AI角色边界
+├── khazix-writer/                   # 卡兹克公众号长文写作专版
+│   ├── SKILL.md
+│   └── references/
+│       ├── content_methodology.md   # HKR框架 + 五种内容原型
+│       └── style_examples.md        # 风格对比示例库
+├── vibe-writer/                     # 标准写作助手（四层自检 + HKR）
 │   ├── SKILL.md
 │   └── references/
 ├── ai-proofreading/                 # AI味审校（四遍审校 + 7维传播力）
@@ -292,6 +321,14 @@ claude-skills-collection/
 ---
 
 ## 📝 更新日志
+
+### v2.2.0 (2026-04-08)
+
+- ✨ **深度整合卡兹克写作方法论**，不再停留于"声称融合"
+  - `vibe-writer-pro`：HKR 质检门槛、四层自检 L1-L4（含活人感）、禁用标点规则、AI 角色边界，新增 Rule 6/7
+  - `vibe-writer`：同步升级四层自检体系、HKR 选题质检、活人感三要素
+- 🆕 **NEW**: `khazix-writer` — 卡兹克公众号长文写作专版（来自 KKKKhazix/khazix-skills）
+  - 五大价值观底色 + 五种内容原型 + HKR 框架 + 四层自检
 
 ### v2.1.0 (2026-03-28)
 
