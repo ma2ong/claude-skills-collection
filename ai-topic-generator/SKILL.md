@@ -36,7 +36,7 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 
 | 优先级 | 平台 |
 |--------|------|
-| 高 | Twitter/X、Reddit、GitHub Trending、Hacker News、buzzing.cc |
+| 高 | Twitter/X、Reddit、GitHub Trending、Hacker News、buzzing.cc、**aihot.virxact.com**（AI 热点聚合，卡兹克信息源） |
 | 中 | 知乎热榜、微博热搜、Product Hunt |
 | 低 | 小红书、B站（补充性采集） |
 
@@ -259,6 +259,7 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 
 ### Step 1: 热点采集
 1. 并行访问多个平台获取热点
+   - **aihot.virxact.com**：优先读取「精选」和「AI日报」两个栏目，提取当日高质量 AI 动态；「公众号爆文」栏目可判断国内传播热度
 2. 筛选符合标准的内容
 3. 去重并整理成统一格式
 4. 保存到 `output/daily_hotspots/YYYY-MM-DD.json`

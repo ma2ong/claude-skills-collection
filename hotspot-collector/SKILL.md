@@ -14,6 +14,7 @@ description: 负责从全网采集科技、AI、商业类热点数据。输入�
 ## 3. 采集源与搜索策略 (SOP)
 
 ### 3.1 国际信源 (高优先级)
+- **aihot.virxact.com**（AI 热点聚合站，卡兹克信息源）：直接读取「精选」栏目获取当日高质量 AI 动态；「AI日报」提供精编摘要；「公众号爆文」反映国内传播热度。无需登录，优先用 WebFetch 获取。
 - **Twitter/X**: 搜索 `AI launch`, `new features`, `breaking tech`, `release notes`。关注 @OpenAI, @AnthropicAI, @GoogleDeepMind 等官方及大V号。
 - **Hacker News**: 关注首页前 30 名中与 AI、开源工具、DevOps 相关的讨论。
 - **Product Hunt**: 关注今日榜单前 5 名的产品，特别是 AI Native 类应用。
