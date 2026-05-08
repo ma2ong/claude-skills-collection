@@ -36,9 +36,10 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 
 | 优先级 | 平台 |
 |--------|------|
-| 高 | Twitter/X、Reddit、GitHub Trending、Hacker News、buzzing.cc、**aihot skill**（AI 热点 REST API，卡兹克精选，详见 `aihot/SKILL.md`） |
-| 中 | 知乎热榜、微博热搜、Product Hunt |
-| 低 | 小红书、B站（补充性采集） |
+| **主力** | **aihot API**（`aihot/SKILL.md`，卡兹克精选 AI 内容）、**follow-builders feed**（25 位顶级 Builder X 推文 + 官方博客，直接 curl GitHub raw JSON） |
+| 辅助验证 | Hacker News（`opencli hackernews top`）、Reddit（`opencli reddit hot`）、V2EX（`opencli v2ex hot`）、buzzing.cc、Product Hunt |
+| 补充 | 微博热搜、知乎热榜、Twitter 关键词搜索（`opencli twitter search`，需浏览器连接） |
+| 低 | 小红书、B站 |
 
 ### 采集标准
 
@@ -258,12 +259,15 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 当用户说"开始今日选题生成"时，执行以下步骤：
 
 ### Step 1: 热点采集
-1. 并行访问多个平台获取热点
-   - **aihot.virxact.com**：优先读取「精选」和「AI日报」两个栏目，提取当日高质量 AI 动态；「公众号爆文」栏目可判断国内传播热度
-2. 筛选符合标准的内容
-3. 去重并整理成统一格式
-4. 保存到 `output/daily_hotspots/YYYY-MM-DD.json`
-5. 目标：采集20-50条优质热点
+1. **并行执行主力信源**（必须）：
+   - **aihot API**：`curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=selected&since=<24h前>&take=50"`
+   - **follow-builders feed**：`curl -s "https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-x.json"` + `feed-blogs.json`
+2. **并行执行辅助验证**：`opencli hackernews top` + `opencli reddit hot` + `opencli v2ex hot` + buzzing.cc
+3. **按需补充**：`opencli weibo hot` + `opencli zhihu hot` + Twitter 关键词搜索
+4. **交叉验证**：标记两个主力源都出现的事件（优先推荐选题）
+5. 去重合并，整理成统一格式
+6. 保存到 `output/daily_hotspots/YYYY-MM-DD.json`
+7. 目标：采集 20-50 条优质热点
 
 ### Step 2: 选题生成
 1. 读取采集的热点数据

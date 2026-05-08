@@ -13,17 +13,37 @@ description: 负责从全网采集科技、AI、商业类热点数据。输入�
 
 ## 3. 采集源与搜索策略 (SOP)
 
-### 3.1 国际信源 (高优先级)
-- **aihot skill**（AI 热点聚合站，卡兹克信息源）：直接调 REST API 拉取精选动态，比 WebFetch 更稳定。调用方式：`curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=selected&since=<24h前>&take=50"`（需带浏览器 UA，否则 403）。详见 `aihot/SKILL.md`。
-- **Twitter/X**: 搜索 `AI launch`, `new features`, `breaking tech`, `release notes`。关注 @OpenAI, @AnthropicAI, @GoogleDeepMind 等官方及大V号。
-- **Hacker News**: 关注首页前 30 名中与 AI、开源工具、DevOps 相关的讨论。
-- **Product Hunt**: 关注今日榜单前 5 名的产品，特别是 AI Native 类应用。
-- **GitHub Trending**: 关注 `Today` 的 `All languages` 和 `Python/TypeScript` 榜单。
+### 3.1 主力信源（必须执行，优先级最高）
 
-### 3.2 中文信源 (中优先级)
-- **即刻 (Jike)**: 关注「AI 探索站」、「独立开发」圈子。
-- **微信公众号/InfoQ**: 关注大厂技术团队的最新博文。
-- **微博/知乎**: 搜索「大模型」、「新产品发布」等关键词的热搜话题。
+- **aihot API**（AI 内容主战场）：调 REST API 拉取卡兹克精选动态。
+  ```bash
+  UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+  since=$(date -u -d '24 hours ago' +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || powershell -Command "(Get-Date).ToUniversalTime().AddHours(-24).ToString('yyyy-MM-ddTHH:mm:ssZ')")
+  curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=selected&since=$since&take=50"
+  ```
+  详见 `aihot/SKILL.md`。
+
+- **follow-builders feed**（Builder 观点主战场）：拉取 25 位顶级 AI Builder 的 X 推文和官方博客。
+  ```bash
+  curl -s "https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-x.json"
+  curl -s "https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-blogs.json"
+  ```
+  Builder 列表：karpathy、swyx、sama、AmandaAskell、alexalbert__、amasad、rauchg、garrytan、danshipper、steipete、levie、kevinweil、petergyang、mattturck、nikunj、adityaag、zarazhangrui、joshwoodward、thenanyu、realmadhuguru、ryolu_、_catwu、trq212、GoogleLabs、claudeai
+
+### 3.2 辅助交叉验证（主力采集后执行）
+
+同一事件在以下平台也热议 = 跨圈层共振，优先推荐选题：
+
+- **Hacker News**: `opencli hackernews top --limit 20 -f json`
+- **Reddit**: `opencli reddit hot --limit 15 -f json`
+- **V2EX**: `opencli v2ex hot -f json`
+- **buzzing.cc**: 用 web-access 访问 `https://buzzing.cc`（HN 中文热议）
+- **Product Hunt**: 用 web-access 访问 `https://www.producthunt.com`
+
+### 3.3 补充信源（中文圈 + 关键词搜索）
+
+- **微博/知乎**: `opencli weibo hot -f json` / `opencli zhihu hot -f json`
+- **Twitter 关键词**: `opencli twitter search "Claude OR Anthropic OR AI launch" --limit 20 -f json`（需浏览器连接，失败切 web-access）
 
 ## 4. 筛选标准 (Filter Logic)
 
