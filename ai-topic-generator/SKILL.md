@@ -36,7 +36,7 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 
 | 优先级 | 平台 |
 |--------|------|
-| 高 | Twitter/X、Reddit、GitHub Trending、Hacker News、buzzing.cc、**aihot.virxact.com**（AI 热点聚合，卡兹克信息源） |
+| 高 | Twitter/X、Reddit、GitHub Trending、Hacker News、buzzing.cc、**aihot skill**（AI 热点 REST API，卡兹克精选，详见 `aihot/SKILL.md`） |
 | 中 | 知乎热榜、微博热搜、Product Hunt |
 | 低 | 小红书、B站（补充性采集） |
 
