@@ -1,0 +1,8 @@
+{
+  "name": "obsidian-exporter",
+  "version": "0.1.0",
+  "status": "draft",
+  "description": "Obsidian 笔记导出工具",
+  "dependencies": [],
+  "updated": "2026-05-25"
+}

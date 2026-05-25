@@ -1,0 +1,8 @@
+{
+  "name": "khazix-writer",
+  "version": "1.0.0",
+  "status": "stable",
+  "description": "卡兹克写作方法论 skill，HKR选题质检 + 四层自检",
+  "dependencies": [],
+  "updated": "2026-05-25"
+}

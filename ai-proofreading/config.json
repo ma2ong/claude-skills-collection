@@ -1,0 +1,8 @@
+{
+  "name": "ai-proofreading",
+  "version": "1.0.0",
+  "status": "stable",
+  "description": "花叔审校体系，去 AI 味 + 四层自检",
+  "dependencies": [],
+  "updated": "2026-05-25"
+}

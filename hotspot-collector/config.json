@@ -1,0 +1,8 @@
+{
+  "name": "hotspot-collector",
+  "version": "1.1.0",
+  "status": "stable",
+  "description": "多源热点采集员，含语义去重，输出结构化 JSON 热点列表",
+  "dependencies": ["aihot"],
+  "updated": "2026-05-25"
+}

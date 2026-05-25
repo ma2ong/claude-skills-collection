@@ -1,0 +1,8 @@
+{
+  "name": "aihot",
+  "version": "0.1.0",
+  "status": "draft",
+  "description": "aihot.virxact.com API 封装，供 hotspot-collector 调用",
+  "dependencies": [],
+  "updated": "2026-05-25"
+}

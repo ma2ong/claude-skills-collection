@@ -1,0 +1,8 @@
+{
+  "name": "topic-reviewer",
+  "version": "0.5.0",
+  "status": "draft",
+  "description": "选题审核子模块，独立版（完整流程见 ai-topic-generator）",
+  "dependencies": ["topic-generator"],
+  "updated": "2026-05-25"
+}

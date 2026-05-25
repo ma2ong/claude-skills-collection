@@ -1,0 +1,8 @@
+{
+  "name": "content-converter",
+  "version": "1.0.0",
+  "status": "stable",
+  "description": "内容格式转换，适配不同平台发布格式",
+  "dependencies": [],
+  "updated": "2026-05-25"
+}

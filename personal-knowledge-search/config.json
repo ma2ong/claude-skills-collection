@@ -1,0 +1,8 @@
+{
+  "name": "personal-knowledge-search",
+  "version": "1.0.0",
+  "status": "stable",
+  "description": "个人知识库搜索，检索 Obsidian/本地笔记",
+  "dependencies": [],
+  "updated": "2026-05-25"
+}
