@@ -8,13 +8,15 @@
 |-------|-----------|---------|
 | **🚀 vibe-writer-pro** | 写文章、深度写作、专业写作 | 终极全流程写作助手，卡兹克方法论深度落地（HKR质检/四层自检L1-L4/AI角色边界），内置7维爆款质量门 |
 | **✍️ khazix-writer** | 卡兹克风格、公众号长文 | 卡兹克公众号长文写作专版，4000-8000字，五种内容原型，活人感优先 |
-| **🎯 ai-topic-generator** | 开始选题生成、采集热点 | 全自动选题系统：热点采集 → 选题生成 → 质量审核 |
+| **🎯 ai-topic-generator** | 开始选题生成、采集热点 | 全自动选题系统：热点采集 → 选题生成 → 证据包研究 → 质量审核 |
 | **hotspot-collector** | 采集热点、全网热点 | 多平台热点采集，互动量加权评分 + Top评论挖掘 |
 | **topic-generator** | 选题、生成选题 | 基于热点生成高质量选题，支持评论层挖角 + COMPARISON对比选题模式 |
-| **topic-reviewer** | 审核选题、选题质量 | 4维度审核（含传播潜力），自动迭代优化 |
+| **evidence-researcher** | 补证据、找来源、研究包 | 为选题补齐一手来源、数据、反方观点和风险提示 |
+| **topic-reviewer** | 审核选题、选题质量 | 5维度审核 + 内容可做性诊断 + 证据包门槛 |
 | **obsidian-exporter** | 导出选题、Obsidian | 将选题导出到 Obsidian 知识库 |
 | **vibe-writer** | 写作助手、Vibe Writing | 全流程自动化写作，四层自检（L1-L4）+ HKR选题质检 |
-| **ai-proofreading** | 审校、AI味、人味、润色 | 四遍审校流程，系统化降低AI检测率，内置7维传播力评估 |
+| **ai-proofreading** | 审校、AI味、人味、润色 | AI写作指纹诊断 + 必要改写 + 7维传播力评估 |
+| **social-card-generator** | 封面、卡片、小红书图 | 生成微信21:9+1:1封面、小红书卡片组，并做尺寸/可读性检查 |
 | **content-converter** | 转X、转微博、转小红书 | 长文转社交媒体内容 |
 | **personal-knowledge-search** | 素材、案例 | 搜索个人素材库，提供真实案例 |
 
@@ -61,8 +63,9 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 系统会自动：
 1. 📡 从多平台采集最新热点（Twitter、Reddit、GitHub、微博、知乎等）
 2. 💡 分析并生成 TOP10 高质量选题（含事件描述、核心角度、标题建议）
-3. ✅ 智能审核选题质量，给出修改意见
-4. 🔄 自动迭代优化，直到所有选题通过审核
+3. 🔎 为选题补齐证据包（一手来源、反方观点、风险提示）
+4. ✅ 智能审核选题质量，给出修改意见
+5. 🔄 自动迭代优化，直到所有选题通过审核
 
 **原本需要 2-3 小时的选题工作，现在只需 5-10 分钟！**
 
@@ -75,6 +78,7 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 # 分步执行
 采集今日全网热点              # 使用 hotspot-collector
 基于今日热点生成TOP10选题     # 使用 topic-generator
+为今日选题补齐证据包           # 使用 evidence-researcher
 审核今日生成的选题             # 使用 topic-reviewer
 ```
 
@@ -206,7 +210,7 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 全流程自动化写作，四层自检（L1-L4）+ HKR 选题质检 + 多平台分发。
 
 #### 2. ai-proofreading - AI味审校
-系统化降低 AI 检测率，**四遍审校**（内容→风格→细节→传播力），输出7维爆款达标报告。
+默认先做 AI 写作指纹诊断；用户明确要求后再进入必要改写。保留四遍审校（内容→风格→细节→传播力），输出7维爆款达标报告。
 
 #### 3. hotspot-collector - 热点采集器
 
@@ -220,13 +224,19 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 - **评论层挖角**：读取 `top_comments.implied_angle`，以真实读者最关心的角度作为优先切入点
 - **COMPARISON 模式**：检测到同赛道双热点时，自动生成"A vs B"对比选题（优先级排前3）
 
-#### 5. topic-reviewer - 选题审核官
-**4维度**评估（价值度35% + 独特性25% + 落地性25% + **传播潜力15%**），自动迭代优化直到通过审核。
+#### 5. evidence-researcher - 写作证据包研究员
+为选题补齐一手来源、辅助来源、反方观点、缺失证据和风险提示，防止文章停留在热点复述。
 
-#### 6. obsidian-exporter - Obsidian 导出器
+#### 6. topic-reviewer - 选题审核官
+5维度评估（价值度 + 独特性 + 落地性 + 传播潜力 + 证据充分度），并执行内容可做性诊断（文字洁癖、标题/封面、表达效率、认知落差、证据充分度）。
+
+#### 7. social-card-generator - 社交卡片与封面生成器
+生成微信公众号 `21:9 + 1:1` 封面组合、小红书 `1080 x 1440` 卡片组，并检查尺寸、溢出、短标题和缩略图可读性。
+
+#### 8. obsidian-exporter - Obsidian 导出器
 将选题数据导出到 Obsidian 知识库，格式化为 Markdown。
 
-#### 7. content-converter - 分发助手
+#### 9. content-converter - 分发助手
 将长文浓缩并改写成社交媒体内容（X/微博/小红书/知乎）。
 
 #### 8. personal-knowledge-search - 外脑
@@ -272,7 +282,9 @@ claude-skills-collection/
 ├── output/                          # 选题系统输出目录
 │   ├── daily_hotspots/              # 每日热点数据（含 engagement + top_comments）
 │   ├── generated_topics/            # 生成的选题（含 topic_type + comparison_subjects）
-│   └── review_reports/              # 审核报告
+│   ├── evidence_packs/              # 写作证据包
+│   ├── review_reports/              # 审核报告
+│   └── social-cards/                # 封面与社交卡片
 ├── ai-topic-generator/              # AI选题生成系统（总控）
 │   └── SKILL.md
 ├── hotspot-collector/               # 热点采集器（互动量加权 + Top评论）
@@ -281,7 +293,11 @@ claude-skills-collection/
 │   ├── SKILL.md
 │   └── memory/
 │       └── preferences.md
-├── topic-reviewer/                  # 选题审核官（4维度含传播潜力）
+├── topic-reviewer/                  # 选题审核官（5维度 + 证据包门槛）
+│   └── SKILL.md
+├── evidence-researcher/             # 写作证据包研究员
+│   └── SKILL.md
+├── social-card-generator/           # 社交卡片与封面生成器
 │   └── SKILL.md
 ├── obsidian-exporter/               # Obsidian导出器
 │   └── SKILL.md

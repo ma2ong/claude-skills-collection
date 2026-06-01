@@ -19,6 +19,31 @@ description: 负责审核选题质量。输入为选题列表，输出为包含�
 - **落地性 (Actionability)**: 读者读完能否有具体行动？大纲是否逻辑自洽？(权重 25%)
 - **传播潜力 (Virality)**: 标题能否命中"信息差/情绪触发/具体数字"≥ 2项？是否有可截图传播的内容单元设计？是否触发愤怒/焦虑/自豪/感动之一？(权重 15%)
 
+### 3.1.1 内容可做性诊断（必须执行）
+
+借鉴 dbskill 的内容诊断方法，每个选题除打分外，还必须判断它能不能真正做成内容：
+
+| 维度 | 检查问题 | 不通过时的修改指令 |
+|---|---|---|
+| 文字洁癖 | 选题是否依赖套话、空泛大词、AI 式万能判断？ | 要求改成具体对象、具体场景、具体冲突 |
+| 标题/封面 | 标题和封面是否自带吸引力？是否能一眼看出"这篇和我有关"？ | 要求加入信息差、情绪触发或具体数字 |
+| 表达效率 | 能否一句话说清核心判断？大纲是否有冗余铺垫？ | 要求删掉背景堆砌，前三段直接进入冲突 |
+| 认知落差 | 读者看完是否会获得"原来如此"的新判断？ | 要求补充反常识角度、竞品对比或行业后果 |
+| 证据充分度 | 是否有一手来源、数据、案例、反方观点支撑？ | 要求先调用 `evidence-researcher` 补证据包 |
+
+### 3.1.2 证据包门槛
+
+如果输入中包含 `evidence_pack`，必须检查：
+
+- S 级选题至少有 1 条一手来源
+- 每个核心判断至少有 1 条可追溯来源
+- 至少有 1 个反方观点或风险提示
+- `research_status=weak` 的选题不能 PASS，只能 REVISE 或 REJECT
+
+如果没有证据包，但选题涉及"最新发布、公司动态、论文、政策、数据、市场判断"，不能直接 PASS，必须给出指令：
+
+`先调用 evidence-researcher 补齐 evidence_pack，再复审。`
+
 ### 3.2 判定逻辑 (Decision Logic)
 - **PASS**: 总分 ≥ 8.0 且无单项 < 6.0。
 - **REVISE**: 总分 < 8.0 或存在单项 < 6.0。
@@ -50,7 +75,20 @@ description: 负责审核选题质量。输入为选题列表，输出为包含�
     {
       "topic_id": "topic-id",
       "result": "PASS", // 或 REVISE
-      "scores": { "value": 9, "uniqueness": 8, "actionability": 9 },
+      "scores": {
+        "value": 9,
+        "uniqueness": 8,
+        "actionability": 9,
+        "virality": 8,
+        "evidence": 8
+      },
+      "content_diagnosis": {
+        "text_hygiene": "PASS/WARN/FAIL",
+        "headline_cover": "PASS/WARN/FAIL",
+        "expression_efficiency": "PASS/WARN/FAIL",
+        "cognitive_gap": "PASS/WARN/FAIL",
+        "evidence_sufficiency": "PASS/WARN/FAIL"
+      },
       "issues": [], // PASS 时为空
       "revision_instructions": [] // PASS 时为空
     },

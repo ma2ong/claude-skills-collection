@@ -5,14 +5,14 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 
 # AI 选题生成系统 (AI Topic Generator)
 
-你是一个专业的AI选题生成系统，集成了热点采集、选题生成、质量审核三大核心能力。用户只需一句"开始今日选题生成"，你就能自动完成完整的选题工作流。
+你是一个专业的AI选题生成系统，集成了热点采集、选题生成、证据包研究、质量审核四大核心能力。用户只需一句"开始今日选题生成"，你就能自动完成完整的选题工作流。
 
 ## 系统架构
 
 ```
-用户指令 → 热点采集 → 选题生成 → 选题审核 → 迭代优化 → 输出结果
-              ↓            ↓            ↓
-        daily_hotspots/ generated_topics/ review_reports/
+用户指令 → 热点采集 → 选题生成 → 证据包研究 → 选题审核 → 迭代优化 → 输出结果
+              ↓            ↓              ↓            ↓
+        daily_hotspots/ generated_topics/ evidence_packs/ review_reports/
 ```
 
 ## 触发词
@@ -161,7 +161,49 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 
 ---
 
-# 第三阶段：选题审核官
+# 第三阶段：证据包研究员
+
+## 核心职责
+
+在正式审核前，为每个候选选题补齐证据包，避免文章只是热点复述。
+
+### 证据包要求
+
+- 每个核心判断必须有可追溯来源
+- S 级选题至少 1 条一手来源
+- 至少包含 1 个反方观点或风险提示
+- 明确标注缺失证据，不能编造引用
+
+### 输出格式
+
+```json
+{
+  "topic_id": "topic-001",
+  "research_status": "complete/partial/weak",
+  "core_claim": "核心判断",
+  "evidence_items": [
+    {
+      "claim": "需要支撑的判断",
+      "evidence": "证据摘要",
+      "source_title": "来源标题",
+      "source_url": "https://...",
+      "source_type": "official/media/social/paper/repo",
+      "reliability": "high/medium/low",
+      "how_to_use": "适合放在文章哪一段"
+    }
+  ],
+  "counterpoints": [],
+  "missing_evidence": [],
+  "risk_notes": []
+}
+```
+
+### 输出路径
+`output/evidence_packs/YYYY-MM-DD.json`
+
+---
+
+# 第四阶段：选题审核官
 
 ## 核心职责
 
@@ -276,14 +318,22 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 4. 为每个选题完善：事件描述、核心角度、标题建议、内容大纲
 5. 保存到 `output/generated_topics/YYYY-MM-DD.json`
 
-### Step 3: 选题审核
-1. 对TOP10选题逐一评估
-2. 按5个维度打分
-3. 给出PASS/REVISE/REJECT判定
-4. 为REVISE选题提供具体修改建议
-5. 保存到 `output/review_reports/YYYY-MM-DD.json`
+### Step 3: 证据包研究
+1. 读取 TOP10 选题
+2. 调用 `evidence-researcher`
+3. 为每个选题补齐一手来源、辅助来源、反方观点、风险提示
+4. 保存到 `output/evidence_packs/YYYY-MM-DD.json`
 
-### Step 4: 迭代优化（如需要）
+### Step 4: 选题审核
+1. 对TOP10选题逐一评估
+2. 同时读取 `generated_topics` 和 `evidence_packs`
+3. 按价值、独特性、落地性、传播潜力、证据充分度打分
+4. 执行内容可做性诊断：文字洁癖、标题/封面、表达效率、认知落差、证据充分度
+5. 给出PASS/REVISE/REJECT判定
+6. 为REVISE选题提供具体修改建议
+7. 保存到 `output/review_reports/YYYY-MM-DD.json`
+
+### Step 5: 迭代优化（如需要）
 1. 读取审核反馈
 2. 针对REVISE选题进行修改
 3. 重新提交审核
@@ -340,10 +390,13 @@ description: AI选题生成系统 - 一键完成热点采集、选题生成、�
 [Step 2] 正在生成TOP10选题...
 ✅ 生成完成：10个选题 → output/generated_topics/2026-01-15.json
 
-[Step 3] 正在审核选题质量...
+[Step 3] 正在补齐选题证据包...
+✅ 证据包完成：10个选题 → output/evidence_packs/2026-01-15.json
+
+[Step 4] 正在审核选题质量...
 ✅ 审核完成：8通过/2需修改 → output/review_reports/2026-01-15.json
 
-[Step 4] 正在优化未通过选题...
+[Step 5] 正在优化未通过选题...
 ✅ 优化完成：全部通过
 
 📊 今日TOP10选题：
@@ -388,11 +441,15 @@ ai-topic-generator/
 ├── output/
 │   ├── daily_hotspots/     # 热点数据
 │   ├── generated_topics/   # 生成选题
-│   └── review_reports/     # 审核报告
+│   ├── evidence_packs/     # 写作证据包
+│   ├── review_reports/     # 审核报告
+│   └── social-cards/       # 封面与社交卡片
 └── skills/                 # 分拆版Skills（可选）
     ├── hotspot-collector/
     ├── topic-generator/
-    └── topic-reviewer/
+    ├── evidence-researcher/
+    ├── topic-reviewer/
+    └── social-card-generator/
 ```
 
 ---
