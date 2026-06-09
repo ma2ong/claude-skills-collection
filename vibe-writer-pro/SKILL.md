@@ -530,6 +530,35 @@ D7 传播裂变      □ / ✅   至少1个可截图传播的信息单元（金�
 
 **规则**：达标 < 5 项，必须修复后才能进入 Phase 4。
 
+**爆款门增强（公式化升级）**：
+- D1 标题：不靠感觉，调用 `references/title_formulas.md` 给标题套公式编号，张力检查至少命中 2 项；产出 3 个备选 + Top 1
+- D2 钩子：调用 `references/hook_principles.md` 跑 6 检查点（独立性/抓手/悬念/可信度/顺滑度/与正文兑现）
+- 全文：调用 `references/ai_fingerprints.md` 扫 22 条 AI 指纹，命中 🔴 强信号必须按追问表改
+
+---
+
+**步骤 3.5 - 发布前技术 Preflight（决定能不能稳定进草稿箱）**
+
+> 参考：`references/publish_preflight.md`
+> 这一步专治"文章发不出去/排版乱/图片丢/0 推送"的**技术侧**问题，和上面的内容质量门是两回事，缺一不可。
+
+```
+【发布前技术 Preflight — 7 项硬检查】
+
+1 正文图素材化     □ / ✅   每张图换成 mmbiz.qpic.cn URL，无外链/本地路径？
+2 封面 thumb_media_id □ / ✅   先传封面拿 id 再建草稿？
+3 无深色背景白字   □ / ✅   无 background深色+color白 的隐形段落？
+4 标题≤64/摘要≤120 □ / ✅   未超长，钩子在前 13 字？
+5 IP 白名单        □ / ✅   出口 IP 已加后台白名单？
+6 appid/secret 有效 □ / ✅   config.json 凭证未过期？
+7 复杂排版降级     □ / ✅   table 已改普通段落？
+
+成功条件：拿到 media_id 才算发布成功（接口没报错 ≠ 成功）。
+缺条件 → 诚实降级到本地 preview，保留 errcode，不伪造成功。
+```
+
+**规则**：7 项有任一不过，先修配置/图片，别急着 API 重试。
+
 ---
 
 ### 🎨 Phase 4: 视觉设计 (Visual Design)
@@ -963,6 +992,12 @@ mcp__playwright__browser_take_screenshot(filename="output/screenshots/[filename]
 - [ ] 句子和段落长度合适
 - [ ] 加粗不超过 2 处/200 字
 
+**Phase 3.5 - 发布前质检关（有否决权）**
+- [ ] 标题已套公式，张力≥2 项
+- [ ] 开头 6 检查点通过
+- [ ] AI 指纹无 🔴 强信号
+- [ ] 发布技术 Preflight 7 项通过
+
 **Phase 4 - 视觉设计**
 - [ ] 封面图已生成
 - [ ] 章节配图已配齐
@@ -991,6 +1026,13 @@ mcp__playwright__browser_take_screenshot(filename="output/screenshots/[filename]
 - `personal-knowledge-search`: 素材库搜索
 
 确保这些 Skills 已安装在你的 Claude Skills 目录中。
+
+**Phase 3.5 发布前质检关引用以下参考文件**：
+
+- `references/title_formulas.md`: 75 标题公式（公众号适配版）— 打开率
+- `references/hook_principles.md`: 开头诊断 6 检查点 — 完读率
+- `references/ai_fingerprints.md`: 22 条 AI 指纹只诊断扫描 — 质量分
+- `references/publish_preflight.md`: 公众号发布 7 项硬检查 + errcode 排查 — 进草稿箱
 
 ---
 

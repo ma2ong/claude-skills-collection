@@ -152,13 +152,16 @@ git clone https://github.com/ma2ong/claude-skills-collection.git
 - 🚀 **多平台分发**：一键生成 X/微博/小红书等平台内容
 - 📊 **7维爆款质量门**：内置公众号爆款评估框架，低于5/7不得进入发布阶段
 
-**完整工作流（6 个阶段）**：
+**完整工作流（7 个阶段）**：
 1. **Phase 1: 需求理解与选题策划** - 深度调研 + 3 个差异化选题
 2. **Phase 2: 初稿创作（Vibe 风格）** - 真实案例驱动 + 数据支撑
 3. **Phase 3: 三遍审校 + 7维质量门** - 内容审校 → 风格审校 → 细节打磨 → 爆款评估
-4. **Phase 4: 视觉设计** - 封面图 + 章节配图 + 真实截图混合
-5. **Phase 5: 多平台分发** - X Thread + 微博 + 小红书
-6. **Phase 6: 最终交付** - 完整 Markdown + 配图 + 统计报告
+4. **Phase 3.5: 发布前质检关（有否决权）** - 七维门公式化升级 + 发布技术 Preflight，不达标不放行
+5. **Phase 4: 视觉设计** - 封面图 + 章节配图 + 真实截图混合
+6. **Phase 5: 多平台分发** - X Thread + 微博 + 小红书
+7. **Phase 6: 最终交付** - 完整 Markdown + 配图 + 统计报告
+
+> **🚦 Phase 3.5 是新增的发布前质检关**，专治"文章写得好但公众号 0 推送"。在七维门之上加四个公式化参考库 `vibe-writer-pro/references/`：`title_formulas.md`（标题打开率）、`hook_principles.md`（开头完读率）、`ai_fingerprints.md`（AI 指纹质量分）、`publish_preflight.md`（发布进草稿箱）。
 
 **启动指令**：
 ```
