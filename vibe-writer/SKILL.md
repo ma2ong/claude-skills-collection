@@ -17,12 +17,12 @@ description: |
 ## 核心能力 (The Superpowers)
 
 1.  **Vibe Voice**：像懂技术的老朋友聊天。平和、真诚、有理有据，拒绝"震惊体"。
-2.  **Evidence First**：强制要求真实案例、代码片段和产品截图。
+2.  **Evidence First**：优先使用真实案例、代码或产品截图；材料不足时缩小论点或标记缺口，不补造素材。
 3.  **Auto Flow**：从调研到发布，9 步闭环。
 4.  **Hybrid Visuals**：极简概念图 (Nano Banana/Flux) + 真实界面图 (Unsplash/Screenshots)。
 5.  **HKR 质检门槛**：选题必须同时满足 Happy（有趣）/ Knowledge（信息量）/ Resonance（共鸣），及格线两项，S级三项全中。
 6.  **角色边界**：AI 负责补证据、找类比、扩写；人来出创意、讲经历、定观点。不让 AI 替人做有灵魂的那部分。
-7.  **活人感四层自检**：L1 禁词禁标点 → L2 节奏口语化 → L3 内容质量 → L4 温度感/独特性/心流。
+7.  **统一收尾**：由 `ai-proofreading` 覆盖事实完整性、模板信号、节奏、作者声音与格式，不强制制造个人经历或禁用某类标点。
 
 ## 启动指令
 
@@ -36,25 +36,25 @@ description: |
 
 ### Phase 1: 思考与策划 (The Brain)
 1.  **理解需求**：分析用户意图，确定受众与目标。
-2.  **深度调研**：调用搜索工具，寻找**真实案例**和**最新数据**。
+2.  **深度调研**：调用 `hotspot-collector` 获取时效素材，再调用 `evidence-researcher` 补一手来源、反方观点和证据缺口。
 3.  **选题提案**：提出 3 个**务实且有洞察**的选题方向，每个必须过 **HKR 质检**（Happy/Knowledge/Resonance，及格两项）。未过线的选题直接淘汰。
 
 ### Phase 2: 创作与构建 (The Hands)
 4.  **风格加载**：读取 `references/style_guide.md`，进入"老友聊天"模式。
 5.  **初稿写作**：
     *   **Hook**：平实但有力的开场。
-    *   **Body**：必须包含"举个例子"、"看这张图"、"代码是这样的"。
+    *   **Body**：用真实案例、截图或代码支撑判断；只选择当前内容确实需要且材料中存在的形式。
     *   **Value**：讲清楚来龙去脉 + 具体怎么做。
 6.  **视觉设计**：读取 `references/visual_guide.md`。
     *   调用 `image-generator` (或 Nano Banana) 生成封面。
     *   搜索或描述真实的产品截图。
 
 ### Phase 3: 审校与交付 (The Filter)
-7.  **四层自检**：读取 `references/anti_ai_checklist.md`。
-    *   **L1** — 删禁用词、改禁用标点（冒号/破折号→逗号）、去套话。
-    *   **L2** — 检查节奏口语化、开头是否从具体事件切入。
-    *   **L3** — 观点有无支撑、知识有无输出、逻辑是否自洽。
-    *   **L4** — 温度感/独特性/心流连贯性，四层全通过才算达标。
+7.  **统一审校**：调用 `ai-proofreading` 的 `finalize` 模式；`references/anti_ai_checklist.md` 只作为 Vibe 文风补充，不再复制一套收尾流程。
+    *   先冻结数字、名称、链接和必要限定词。
+    *   再做意图、结构、具体表达、节奏、格式和完整性复核。
+    *   能执行脚本时运行 `ai-proofreading/scripts/anti_ai_gate.py`，定点修改后最多复查两轮。
+    *   用户提供本人样本或说“不像我”时，先运行 `learn-style` 再 finalize。
 8.  **最终交付**：输出完整的 Markdown 文件。
 
 ## 风格示例 (Tone of Voice)
@@ -69,6 +69,8 @@ description: |
 - [视觉指南](references/visual_guide.md)
 - [工作流规则](references/workflow_rules.md)
 - [审校清单](references/anti_ai_checklist.md)
+- `ai-proofreading`: 统一的诊断、作者画像和最终润色
+- `hotspot-collector` / `evidence-researcher`: 可降级调研与证据包
 
 ---
 *Created by blending the best of MapleShaw, Hua Shu, Baoyu, and Kazike.*

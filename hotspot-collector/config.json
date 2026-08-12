@@ -1,8 +1,8 @@
 {
   "name": "hotspot-collector",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "status": "stable",
-  "description": "多源热点采集员，含语义去重，输出结构化 JSON 热点列表",
-  "dependencies": ["aihot"],
-  "updated": "2026-05-25"
+  "description": "基于 Agent Reach 路由的多源热点采集、语义去重与信源覆盖记录",
+  "dependencies": ["aihot", "agent-reach"],
+  "updated": "2026-08-04"
 }

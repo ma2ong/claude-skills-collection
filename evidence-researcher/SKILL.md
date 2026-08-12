@@ -1,6 +1,6 @@
 ---
 name: evidence-researcher
-description: 写作证据包研究员。用于在选题通过初筛后、正式写作前，为每个选题补齐来源、数据、案例、反方观点和研究缺口，防止文章停留在热点复述。
+description: 写作证据包研究员。通过 Agent Reach 和一手来源为选题补齐数据、案例、反方观点、检索后端与研究缺口，防止文章停留在热点复述。
 ---
 
 # Evidence Researcher - 写作证据包研究员
@@ -35,6 +35,8 @@ description: 写作证据包研究员。用于在选题通过初筛后、正式�
 
 ### Step 2: 查找证据
 
+先运行 `agent-reach doctor --json`，按 `active_backend` 使用已通过体检的渠道。旧版不支持 JSON 或某渠道不可用时，调用 `hotspot-collector` 的 `references/research-routing.md` 所定义的 fallback，并记录覆盖缺口。不要为了凑齐平台而配置 Cookie；登录态未就绪就跳过。
+
 优先级：
 
 1. 官方来源：官网、博客、文档、release note、论文、GitHub 仓库
@@ -43,6 +45,8 @@ description: 写作证据包研究员。用于在选题通过初筛后、正式�
 4. 聚合来源：aihot API、buzzing.cc、Product Hunt
 
 当前信息如果可能变化，必须实时查询。不要用训练记忆回答“最新”“今天”“刚刚发布”的事实。
+
+社交来源只能证明“有人这样讨论”或提供调查线索，不能单独证明产品参数、公司声明、市场数据或事件原因。
 
 ### Step 3: 生成证据包
 
@@ -56,6 +60,12 @@ description: 写作证据包研究员。用于在选题通过初筛后、正式�
     "secondary_sources": 3,
     "social_sources": 4
   },
+  "source_coverage": {
+    "checked_at": "ISO-8601",
+    "available_channels": ["web", "github"],
+    "failed_channels": [],
+    "fallbacks_used": []
+  },
   "evidence_items": [
     {
       "claim": "需要支撑的判断",
@@ -64,6 +74,8 @@ description: 写作证据包研究员。用于在选题通过初筛后、正式�
       "source_url": "https://...",
       "source_type": "official/media/social/paper/repo",
       "reliability": "high/medium/low",
+      "active_backend": "本次实际使用的后端",
+      "retrieved_at": "ISO-8601",
       "how_to_use": "适合放在文章哪一段"
     }
   ],
@@ -105,4 +117,5 @@ description: 写作证据包研究员。用于在选题通过初筛后、正式�
 - 不能把 aihot、follow-builders 或社交平台当作唯一事实来源
 - 引用外媒、论文、官方文档时必须保留原始 URL
 - 若事实无法确认，必须写入 `missing_evidence` 或 `risk_notes`
+- 任一渠道不可用时必须写入 `source_coverage.failed_channels`，不能静默假装已覆盖
 

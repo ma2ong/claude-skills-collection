@@ -18,7 +18,8 @@
 - 输出：Brief 文档。
 
 ### Step 2: 深度调研 (Research)
-- 调用搜索工具 (Tavily/Exa/Google)。
+- 调用 `hotspot-collector`，按 Agent Reach 当前可用渠道采集。
+- 调用 `evidence-researcher`，为核心判断补一手来源、反方观点和研究缺口。
 - 查找：最新热点、行业数据、技术细节、反直觉观点。
 - 沉淀：关键事实列表。
 
@@ -43,10 +44,9 @@
 - 输出：`draft_v1.md`。
 
 ### Step 6: AI味审校 (Anti-AI Review)
-- 加载 `anti_ai_checklist.md`。
-- 第一遍：逻辑与事实检查。
-- 第二遍：去 AI 味（删套话、拆长句）。
-- 第三遍：润色与节奏。
+- 调用 `ai-proofreading` 的 `finalize` 模式；`anti_ai_checklist.md` 只补充 Vibe 文风约束。
+- 冻结事实字段后做定点修改，执行确定性检查，最后复核完整性。
+- 作者样本可用或用户说“不像我”时，先运行 `learn-style`。
 - 输出：`draft_v2.md`。
 
 ### Step 7: 视觉增强 (Visuals)

@@ -1,8 +1,8 @@
 {
   "name": "vibe-writer-pro",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "status": "stable",
   "description": "终极全流程写作助手，融合多方法论，从选题到发布的完整闭环",
-  "dependencies": ["ai-proofreading", "hotspot-collector"],
-  "updated": "2026-05-25"
+  "dependencies": ["ai-proofreading", "hotspot-collector", "evidence-researcher", "agent-reach"],
+  "updated": "2026-08-04"
 }

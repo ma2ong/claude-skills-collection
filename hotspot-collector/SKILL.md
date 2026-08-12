@@ -1,6 +1,6 @@
 ---
 name: hotspot-collector
-description: 负责从全网采集科技、AI、商业类热点数据。输入为指令，输出为结构化的热点 JSON 列表。
+description: 通过 Agent Reach 和现有搜索工具采集科技、AI、商业热点，记录信源可靠性、当前后端与覆盖缺口，输出结构化 JSON。
 ---
 
 # 热点采集员 SOP 手册
@@ -12,6 +12,12 @@ description: 负责从全网采集科技、AI、商业类热点数据。输入�
 从全球各大信源采集最新的高价值信息，并清洗为标准数据格式。
 
 ## 3. 采集源与搜索策略 (SOP)
+
+### 3.0 环境体检与路由（必须先执行）
+
+读取 `references/research-routing.md`，运行 `agent-reach doctor --json`，按各渠道 `active_backend` 选择当前可用工具。旧版不支持 JSON 或某个渠道不可用时，按 reference 的降级顺序继续，不因单个渠道失败终止任务。
+
+先建立 `source_coverage`，采集结束时补全成功渠道、失败原因和 fallback。为兼容现有选题生成器，热点主文件继续保持 JSON 列表，覆盖信息写入同名 `.coverage.json` sidecar。登录态渠道只在已经配置且体检通过时使用，不自动索取或读取 Cookie。
 
 ### 3.1 主力信源（必须执行，优先级最高）
 
@@ -34,16 +40,16 @@ description: 负责从全网采集科技、AI、商业类热点数据。输入�
 
 同一事件在以下平台也热议 = 跨圈层共振，优先推荐选题：
 
-- **Hacker News**: `opencli hackernews top --limit 20 -f json`
-- **Reddit**: `opencli reddit hot --limit 15 -f json`
-- **V2EX**: `opencli v2ex hot -f json`
+- **Hacker News**: 当前 OpenCLI 后端可用时运行 `opencli hackernews top --limit 20 -f json`
+- **Reddit**: 仅在 Agent Reach 体检确认登录态后端可用时采集
+- **V2EX**: 优先使用 Agent Reach 当前激活后端；OpenCLI 可用时运行 `opencli v2ex hot -f json`
 - **buzzing.cc**: 用 web-access 访问 `https://buzzing.cc`（HN 中文热议）
 - **Product Hunt**: 用 web-access 访问 `https://www.producthunt.com`
 
 ### 3.3 补充信源（中文圈 + 关键词搜索）
 
-- **微博/知乎**: `opencli weibo hot -f json` / `opencli zhihu hot -f json`
-- **Twitter 关键词**: `opencli twitter search "Claude OR Anthropic OR AI launch" --limit 20 -f json`（需浏览器连接，失败切 web-access）
+- **微博/知乎**: 当前 OpenCLI 后端可用时运行 `opencli weibo hot -f json` / `opencli zhihu hot -f json`
+- **Twitter 关键词**: 按 Agent Reach 的 `active_backend` 选命令；不可用时切官方博客、follow-builders feed 或 RSS
 
 ## 4. 筛选标准 (Filter Logic)
 
@@ -84,6 +90,10 @@ description: 负责从全网采集科技、AI、商业类热点数据。输入�
     "title": "事件标题（中文，简练有力）",
     "platform": "来源平台 (e.g., GitHub, Twitter)",
     "url": "原始链接",
+    "source_type": "official/media/social/paper/repo/aggregator",
+    "reliability": "high/medium/low",
+    "active_backend": "本次实际使用的后端",
+    "retrieved_at": "ISO-8601",
     "engagement": {
       "likes": 0,
       "reposts": 0,
@@ -106,6 +116,17 @@ description: 负责从全网采集科技、AI、商业类热点数据。输入�
 ]
 ```
 
+同时输出同名覆盖文件，例如 `2026-08-04.coverage.json`：
+
+```json
+{
+  "checked_at": "ISO-8601",
+  "available_channels": ["web", "github"],
+  "failed_channels": [{"channel": "reddit", "reason": "login required"}],
+  "fallbacks_used": [{"from": "twitter", "to": "rss"}]
+}
+```
+
 ### heat_score 计算说明
 
 | 分项 | 权重 | 评分依据 |
@@ -118,8 +139,9 @@ description: 负责从全网采集科技、AI、商业类热点数据。输入�
 
 **用户**: "采集今日热点"
 **行动**:
-1. 并行搜索上述信源。
-2. 聚合信息，去除重复项。
-3. 应用筛选标准，保留 Top 20-30。
-4. 生成 JSON 文件。
-5. 回复: "已完成采集，共获取 [N] 条高价值热点，保存于 [路径]。"
+1. 体检渠道并建立 `source_coverage`。
+2. 并行搜索可用信源。
+3. 聚合信息，去除重复项。
+4. 应用筛选标准，保留 Top 20-30。
+5. 生成热点 JSON 列表和同名 `.coverage.json`，后者记录渠道覆盖与降级。
+6. 回复: "已完成采集，共获取 [N] 条高价值热点，覆盖 [X] 个渠道，保存于 [路径]。"
