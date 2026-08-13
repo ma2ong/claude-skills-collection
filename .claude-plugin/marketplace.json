@@ -1,0 +1,43 @@
+{
+  "name": "claude-skills-collection",
+  "owner": {
+    "name": "ma2ong",
+    "url": "https://github.com/ma2ong"
+  },
+  "metadata": {
+    "description": "中文公众号从热点到发布的一条完整流水线",
+    "version": "2.3.0"
+  },
+  "plugins": [
+    {
+      "name": "topic-radar",
+      "description": "选题段流水线：多平台热点采集 → 选题生成 → 证据包研究 → 质量审核 → 导出 Obsidian。一句「开始今日选题生成」跑完全程。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./ai-topic-generator",
+        "./hotspot-collector",
+        "./aihot",
+        "./topic-generator",
+        "./evidence-researcher",
+        "./topic-reviewer",
+        "./obsidian-exporter"
+      ]
+    },
+    {
+      "name": "vibe-writing",
+      "description": "写作段流水线：长文写作 → AI 味审校 → 封面与卡片 → 多平台改写分发，附个人素材库检索。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./vibe-writer-pro",
+        "./vibe-writer",
+        "./khazix-writer",
+        "./ai-proofreading",
+        "./social-card-generator",
+        "./content-converter",
+        "./personal-knowledge-search"
+      ]
+    }
+  ]
+}

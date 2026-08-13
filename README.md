@@ -26,11 +26,44 @@
 
 ### 安装方式
 
+本仓库是一个 Claude Code **插件市场**，两条命令装完，重启 Claude Code 生效：
+
 ```bash
-# 克隆到 Claude Skills 目录
-cd ~/.claude/skills
-git clone https://github.com/ma2ong/claude-skills-collection.git
+claude plugin marketplace add ma2ong/claude-skills-collection
+claude plugin install topic-radar@claude-skills-collection    # 选题段（7 个 skill）
+claude plugin install vibe-writing@claude-skills-collection   # 写作段（7 个 skill）
 ```
+
+两个插件合起来就是完整流水线；只想要其中一段就只装一个。
+
+| 插件 | 包含 | 装完能做什么 |
+|---|---|---|
+| `topic-radar` | ai-topic-generator / hotspot-collector / aihot / topic-generator / evidence-researcher / topic-reviewer / obsidian-exporter | 说一句「开始今日选题生成」，跑完热点采集 → 选题 → 证据包 → 审核 → 导出 |
+| `vibe-writing` | vibe-writer-pro / vibe-writer / khazix-writer / ai-proofreading / social-card-generator / content-converter / personal-knowledge-search | 从选题写到成稿，含 AI 味审校、封面卡片、多平台改写 |
+
+验证装好了：
+
+```bash
+claude plugin details topic-radar     # 应列出 Skills (7)
+claude plugin details vibe-writing    # 应列出 Skills (7)
+```
+
+<details>
+<summary>不用插件，手动安装</summary>
+
+Claude Code 只识别 `~/.claude/skills/<skill 名>/SKILL.md` 这一层，**直接 `git clone` 整个仓库到 `~/.claude/skills` 装不上任何 skill**（会得到一个没有根 `SKILL.md` 的空壳目录）。手动装必须把子目录逐个拷出来：
+
+```bash
+git clone https://github.com/ma2ong/claude-skills-collection.git /tmp/csc
+for s in ai-topic-generator hotspot-collector aihot topic-generator \
+         evidence-researcher topic-reviewer obsidian-exporter \
+         vibe-writer-pro vibe-writer khazix-writer ai-proofreading \
+         social-card-generator content-converter personal-knowledge-search; do
+  cp -r "/tmp/csc/$s" ~/.claude/skills/
+done
+```
+
+</details>
 
 ### 使用方法
 
