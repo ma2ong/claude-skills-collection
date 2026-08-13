@@ -1,0 +1,76 @@
+[
+  {
+    "topic_id": "topic-001",
+    "rank": 1,
+    "event_description": {
+      "title": "Meta's $2 Billion Manus Acquisition",
+      "what": "Meta acquires AI agent startup Manus for $2 billion.",
+      "when": "February 2026",
+      "who": "Meta, Manus",
+      "background": "Manus is a leader in the AI agent space, focusing on autonomous tasks.",
+      "source_hotspots": ["hs-001"]
+    },
+    "core_angle": {
+      "angle_title": "The AI Agent Wars: Why Meta Paid $2B for Manus",
+      "perspective": "Analyzing Meta's strategic shift from social media to autonomous AI infrastructure.",
+      "unique_value": "Deep dive into how AI agents are the new OS.",
+      "target_audience": "Tech enthusiasts, investors, developers",
+      "key_insights": ["Consolidation of the AI agent market", "The 'Agency' race", "Future of user interfaces"]
+    },
+    "headline": {
+      "primary": "Meta $20亿收购 Manus：AI Agent 时代的终局之战已经打响",
+      "alternatives": ["为什么 Meta 愿意为 Manus 支付 20 亿美元？", "从社交巨头到 AI 代理：扎克伯格的下一次豪赌"],
+      "style": "Professional/Analytic",
+      "hook": "Discusses the largest AI agent acquisition to date."
+    },
+    "content_outline": {
+      "structure": ["Introduction", "Why Manus?", "The Strategic Map of Meta", "What's Next for Developers?"],
+      "key_points": ["Manus tech stack", "Meta's internal AI integration", "Market impact"],
+      "estimated_length": "2500 words"
+    },
+    "metadata": {
+      "difficulty": "Medium",
+      "priority": "High",
+      "estimated_time": "4 hours",
+      "category": "AI/Business",
+      "keywords": ["Meta", "Manus", "AI Agents", "Acquisition"]
+    }
+  },
+  {
+    "topic_id": "topic-002",
+    "rank": 2,
+    "event_description": {
+      "title": "The Rise of OpenClaw and the 'Action' AI Era",
+      "what": "OpenClaw becomes the top trending repository, driving hardware demand.",
+      "when": "February 2026",
+      "who": "Open source community, Apple (Mac mini)",
+      "background": "OpenClaw enables local execution of complex AI agent workflows.",
+      "source_hotspots": ["hs-002"]
+    },
+    "core_angle": {
+      "angle_title": "Local AI is Back: How OpenClaw Revived the Mac mini Market",
+      "perspective": "The trend towards running powerful AI agents locally for privacy and cost.",
+      "unique_value": "Linking open-source software trends to physical hardware markets.",
+      "target_audience": "Developers, PC enthusiasts",
+      "key_insights": ["Hardware requirements for local agents", "The shift from SaaS to local LLMs", "Open source vs closed AI agents"]
+    },
+    "headline": {
+      "primary": "一个开源项目带火了二手 Mac mini：OpenClaw 开启的本地 AI 代理革命",
+      "alternatives": ["别买云服务了：OpenClaw 让你在本地跑全能助手", "开源 AI 的反击：为什么 OpenClaw 会成为 GitHub 顶流？"],
+      "style": "Tech/Insight",
+      "hook": "Uses the real-world impact on hardware prices as a hook."
+    },
+    "content_outline": {
+      "structure": ["The Mac mini Phenomenon", "OpenClaw Core Features", "Why Local Matters", "The Future of Open Source AI"],
+      "key_points": ["Hardware scarcity", "Performance benchmarks", "Privacy implications"],
+      "estimated_length": "2000 words"
+    },
+    "metadata": {
+      "difficulty": "Medium",
+      "priority": "High",
+      "estimated_time": "3 hours",
+      "category": "AI/Hardware",
+      "keywords": ["OpenClaw", "Mac mini", "Local AI", "GitHub"]
+    }
+  }
+]

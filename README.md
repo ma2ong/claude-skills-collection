@@ -116,45 +116,57 @@ done
 审核今日生成的选题             # 使用 topic-reviewer
 ```
 
-#### 输出示例
+#### 输出示例：一次真实运行
 
-执行完成后，系统会生成三个文件：
+下面是 **2026-02-06 真实跑出来的产物**，三个文件都在仓库里，可以点开看全文。看点是**一条热点能被追着走完全程**：`hs-001` → `topic-001` → 审核 91 分 PASS。
 
-**1. 热点数据** `output/daily_hotspots/2026-03-28.json`
+**1. 热点数据** — [`output/daily_hotspots/2026-02-06.json`](output/daily_hotspots/2026-02-06.json)（当天采集 4 条）
+
 ```json
 {
   "id": "hs-001",
-  "title": "Apple选择Gemini而非ChatGPT为新一代Siri提供动力",
-  "platform": "Twitter/Ars Technica",
-  "engagement": { "likes": 12400, "reposts": 3200, "comments": 890, "total": 16490 },
+  "title": "Manus Acquisition by Meta",
+  "platform": "Reddit/Hacker News",
   "heat_score": 98,
-  "top_comments": [
-    { "text": "This is huge for Google's ad business...", "likes": 2100, "implied_angle": "Gemini接入苹果对谷歌广告收入的影响" }
-  ],
-  "category": "AI/科技巨头"
+  "category": "AI/Business",
+  "summary": "Meta reportedly acquired Manus for $2 billion, signaling a major move in the AI agent space.",
+  "keywords": ["Meta", "Manus", "AI Agents", "Acquisition"],
+  "relevance_score": 10
 }
 ```
 
-**2. 生成选题** `output/generated_topics/2026-03-28.json`
+**2. 生成选题** — [`output/generated_topics/2026-02-06.json`](output/generated_topics/2026-02-06.json)（`source_hotspots` 回指 hs-001）
+
 ```json
 {
   "topic_id": "topic-001",
-  "topic_type": "COMPARISON",
   "rank": 1,
-  "headline": { "primary": "Gemini vs ChatGPT：苹果押注背后，谁才是AI助手的真正赢家" },
+  "event_description": { "source_hotspots": ["hs-001"] },
   "core_angle": {
-    "angle_title": "从高互动评论看：开发者最关心的不是功能，而是数据隐私",
-    "angle_from_comments": "角度来源：高互动评论"
+    "angle_title": "The AI Agent Wars: Why Meta Paid $2B for Manus",
+    "unique_value": "Deep dive into how AI agents are the new OS."
+  },
+  "headline": {
+    "primary": "Meta $20亿收购 Manus：AI Agent 时代的终局之战已经打响",
+    "alternatives": ["为什么 Meta 愿意为 Manus 支付 20 亿美元？", "从社交巨头到 AI 代理：扎克伯格的下一次豪赌"]
   }
 }
 ```
 
-**3. 审核报告** `output/review_reports/2026-03-28.json`
+**3. 审核报告** — [`output/review_reports/2026-02-06.json`](output/review_reports/2026-02-06.json)（不是只给分，会指出该补什么）
+
 ```json
 {
-  "summary": { "total_topics": 10, "passed": 8, "needs_revision": 2, "overall_quality": "优秀" }
+  "topic_id": "topic-001",
+  "verdict": "PASS",
+  "scores": { "topic_value": 95, "angle_uniqueness": 90, "headline_quality": 92, "feasibility": 85, "audience_match": 90 },
+  "total_score": 91,
+  "strengths": ["重大行业并购，话题性极强", "深度分析 AI Agent 对 Meta 战略的影响"],
+  "improvements": ["可以增加对开源与闭源 Agent 竞争的对比"]
 }
 ```
+
+> 这份样本跑在 2026-02 的 schema 上。之后热点数据加了 `engagement` 和 `top_comments`（用高互动评论反推选题角度），选题加了 `topic_type`（含 `COMPARISON` 双热点对比模式），审核加了证据包门槛。字段定义以各 skill 的 `SKILL.md` 为准。
 
 #### 效率对比
 
@@ -324,8 +336,8 @@ claude-skills-collection/
 ├── README.md
 ├── LICENSE                           # MIT
 ├── THIRD_PARTY_NOTICES.md            # 第三方来源与致谢
-├── output/                           # 选题系统输出目录（仓库内只放 example.json）
-│   ├── daily_hotspots/
+├── output/                           # 选题系统输出目录
+│   ├── daily_hotspots/               # example.json + 2026-02-06 真实样本
 │   ├── generated_topics/
 │   └── review_reports/
 │

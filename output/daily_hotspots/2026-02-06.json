@@ -1,0 +1,50 @@
+[
+  {
+    "id": "hs-001",
+    "title": "Manus Acquisition by Meta",
+    "platform": "Reddit/Hacker News",
+    "url": "https://www.reddit.com/r/technology/",
+    "heat_score": 98,
+    "category": "AI/Business",
+    "summary": "Meta reportedly acquired Manus for $2 billion, signaling a major move in the AI agent space.",
+    "keywords": ["Meta", "Manus", "AI Agents", "Acquisition"],
+    "collected_at": "2026-02-06",
+    "relevance_score": 10
+  },
+  {
+    "id": "hs-002",
+    "title": "OpenClaw (formerly Clawdbot) Trending",
+    "platform": "GitHub/Twitter",
+    "url": "https://github.com/trending",
+    "heat_score": 95,
+    "category": "AI/Open Source",
+    "summary": "OpenClaw is an open-source AI agent that enhances AI's 'action' capabilities, causing a spike in Mac mini resale prices.",
+    "keywords": ["OpenClaw", "AI Agents", "Mac mini", "Open Source"],
+    "collected_at": "2026-02-06",
+    "relevance_score": 9
+  },
+  {
+    "id": "hs-003",
+    "title": "Alphabet's 2026 AI Spending Surge",
+    "platform": "Financial News",
+    "url": "https://www.sina.com.cn",
+    "heat_score": 92,
+    "category": "Tech/Business",
+    "summary": "Alphabet plans a massive increase in AI spending for 2026 to maintain search and cloud dominance.",
+    "keywords": ["Alphabet", "Google", "AI Spending", "Investment"],
+    "collected_at": "2026-02-06",
+    "relevance_score": 9
+  },
+  {
+    "id": "hs-004",
+    "title": "AI Music Detection by Deezer",
+    "platform": "TechCrunch/Hacker News",
+    "url": "https://news.ycombinator.com",
+    "heat_score": 88,
+    "category": "AI/Media",
+    "summary": "Deezer opens up its AI music detection tool to other platforms after detecting 13.4M AI tracks in 2025.",
+    "keywords": ["Deezer", "AI Music", "Detection", "Copyright"],
+    "collected_at": "2026-02-06",
+    "relevance_score": 8
+  }
+]
