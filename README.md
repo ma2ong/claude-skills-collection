@@ -15,11 +15,28 @@
 | **evidence-researcher** | 补证据、找来源、研究包 | 为选题补齐一手来源、数据、反方观点和风险提示 |
 | **topic-reviewer** | 审核选题、选题质量 | 5维度审核 + 内容可做性诊断 + 证据包门槛 |
 | **obsidian-exporter** | 导出选题、Obsidian | 将选题导出到 Obsidian 知识库 |
-| **vibe-writer** | 写作助手、Vibe Writing | 全流程自动化写作，四层自检（L1-L4）+ HKR选题质检 |
 | **ai-proofreading** | 审校、AI味、人味、润色 | AI写作指纹诊断 + 必要改写 + 7维传播力评估 |
 | **social-card-generator** | 封面、卡片、小红书图 | 生成微信21:9+1:1封面、小红书卡片组，并做尺寸/可读性检查 |
 | **content-converter** | 转X、转微博、转小红书 | 长文转社交媒体内容 |
 | **personal-knowledge-search** | 素材、案例 | 搜索个人素材库，提供真实案例 |
+
+---
+
+## 🧭 写作时该用哪个？
+
+五个 skill 都跟"写"有关，但**触发时机不同**。按你手上有什么来选：
+
+| 你手上有什么 | 你要什么 | 用这个 |
+|---|---|---|
+| 什么都没有，只有个方向 | 从选题一路做到草稿箱 | **vibe-writer-pro** |
+| 已有 PDF / brief / 链接 / 素材 | 一篇 4000-8000 字成稿，卡兹克文风 | **khazix-writer** |
+| 文章已经写完 | 降 AI 味、加人味 | **ai-proofreading** |
+| 成稿 + 要发朋友圈/小红书/X | 长文改成各平台短内容 | **content-converter** |
+| 成稿，缺封面 | 微信 21:9+1:1 封面、小红书卡片组 | **social-card-generator** |
+
+一句话分界：**vibe-writer-pro 管"从零到发布"，khazix-writer 管"素材进、成稿出"。** 其余三个是接在成稿之后的独立工序，不要为了用它们而绕开主流程。
+
+> v3.1.0 起 `vibe-writer` 已并入 `vibe-writer-pro`。它自称"vibe-writer-pro 的轻量版"，触发词却和后者高度重叠（两边都有"全流程写作"），实际效果是 Agent 随机二选一。它的四个参考文件已全部被 vibe-writer-pro 取代——配图部分尤其明显，vibe-writer-pro 有每 500-700 字一张的硬密度下限和 10 类配图决策表。
 
 ---
 
@@ -32,7 +49,7 @@
 ```bash
 claude plugin marketplace add ma2ong/claude-skills-collection
 claude plugin install topic-radar@claude-skills-collection    # 选题段（7 个 skill）
-claude plugin install vibe-writing@claude-skills-collection   # 写作段（7 个 skill）
+claude plugin install vibe-writing@claude-skills-collection   # 写作段（6 个 skill）
 ```
 
 两个插件合起来就是完整流水线；只想要其中一段就只装一个。
@@ -40,13 +57,13 @@ claude plugin install vibe-writing@claude-skills-collection   # 写作段（7 �
 | 插件 | 包含 | 装完能做什么 |
 |---|---|---|
 | `topic-radar` | ai-topic-generator / hotspot-collector / aihot / topic-generator / evidence-researcher / topic-reviewer / obsidian-exporter | 说一句「开始今日选题生成」，跑完热点采集 → 选题 → 证据包 → 审核 → 导出 |
-| `vibe-writing` | vibe-writer-pro / vibe-writer / khazix-writer / ai-proofreading / social-card-generator / content-converter / personal-knowledge-search | 从选题写到成稿，含 AI 味审校、封面卡片、多平台改写 |
+| `vibe-writing` | vibe-writer-pro / khazix-writer / ai-proofreading / social-card-generator / content-converter / personal-knowledge-search | 从选题写到成稿，含 AI 味审校、封面卡片、多平台改写 |
 
 验证装好了：
 
 ```bash
 claude plugin details topic-radar     # 应列出 Skills (7)
-claude plugin details vibe-writing    # 应列出 Skills (7)
+claude plugin details vibe-writing    # 应列出 Skills (6)
 ```
 
 <details>
@@ -58,7 +75,7 @@ Claude Code 只识别 `~/.claude/skills/<skill 名>/SKILL.md` 这一层，**直�
 git clone https://github.com/ma2ong/claude-skills-collection.git /tmp/csc
 for s in ai-topic-generator hotspot-collector aihot topic-generator \
          evidence-researcher topic-reviewer obsidian-exporter \
-         vibe-writer-pro vibe-writer khazix-writer ai-proofreading \
+         vibe-writer-pro khazix-writer ai-proofreading \
          social-card-generator content-converter personal-knowledge-search; do
   cp -r "/tmp/csc/$s" ~/.claude/skills/
 done
@@ -255,43 +272,40 @@ done
 
 ### 其他 Skills
 
-#### 1. vibe-writer - 氛围感写作助手
-全流程自动化写作，四层自检（L1-L4）+ HKR 选题质检 + 多平台分发。
-
-#### 2. ai-proofreading - AI味审校
+#### 1. ai-proofreading - AI味审校
 默认先做 AI 写作指纹诊断；用户明确要求后再进入必要改写。保留四遍审校（内容→风格→细节→传播力），输出7维爆款达标报告。
 
-#### 3. hotspot-collector - 热点采集器
+#### 2. hotspot-collector - 热点采集器
 
 多平台热点采集，升级特性：
 - **互动量加权评分**：`heat_score = 时效分×0.4 + 跨平台分×0.3 + 互动量分×0.3`
 - **Top评论挖掘**：采集前3高互动评论，自动提炼 `implied_angle`（暗示选题角度）
 
-#### 4. topic-generator - 选题生成器
+#### 3. topic-generator - 选题生成器
 
 基于热点生成高质量选题，升级特性：
 - **评论层挖角**：读取 `top_comments.implied_angle`，以真实读者最关心的角度作为优先切入点
 - **COMPARISON 模式**：检测到同赛道双热点时，自动生成"A vs B"对比选题（优先级排前3）
 
-#### 5. evidence-researcher - 写作证据包研究员
+#### 4. evidence-researcher - 写作证据包研究员
 为选题补齐一手来源、辅助来源、反方观点、缺失证据和风险提示，防止文章停留在热点复述。
 
-#### 6. topic-reviewer - 选题审核官
+#### 5. topic-reviewer - 选题审核官
 5维度评估（价值度 + 独特性 + 落地性 + 传播潜力 + 证据充分度），并执行内容可做性诊断（文字洁癖、标题/封面、表达效率、认知落差、证据充分度）。
 
-#### 7. social-card-generator - 社交卡片与封面生成器
+#### 6. social-card-generator - 社交卡片与封面生成器
 生成微信公众号 `21:9 + 1:1` 封面组合、小红书 `1080 x 1440` 卡片组，并检查尺寸、溢出、短标题和缩略图可读性。
 
-#### 8. aihot - AI 资讯查询
+#### 7. aihot - AI 资讯查询
 直接调用 [aihot.virxact.com](https://aihot.virxact.com) 的公开匿名 API 拉当日 AI 资讯，整理成中文简报。无需 API Key，`hotspot-collector` 会把它作为高优先信源调用。
 
-#### 9. obsidian-exporter - Obsidian 导出器
+#### 8. obsidian-exporter - Obsidian 导出器
 将选题数据导出到 Obsidian 知识库，格式化为 Markdown。Vault 路径按 `OBSIDIAN_VAULT` 环境变量 → `config.json` 的 `vault_path` → 询问用户的顺序解析。
 
-#### 10. content-converter - 分发助手
+#### 9. content-converter - 分发助手
 将长文浓缩并改写成社交媒体内容（X/微博/小红书/知乎）。
 
-#### 11. personal-knowledge-search - 外脑
+#### 10. personal-knowledge-search - 外脑
 搜索个人素材库，获取真实案例和风格参考。
 
 ---
@@ -368,11 +382,6 @@ claude-skills-collection/
 │   │                                 # viral-framework / workflow_rules
 │   ├── scripts/check_prose.py        # 确定性文风检查
 │   └── memory/preferences.md
-├── vibe-writer/                      # 轻量版
-│   ├── SKILL.md  config.json
-│   ├── references/                   # anti_ai_checklist / style_guide /
-│   │                                 # visual_guide / workflow_rules
-│   └── memory/preferences.md
 ├── khazix-writer/                    # 卡兹克风格长文（方法论来源见 THIRD_PARTY_NOTICES）
 │   ├── SKILL.md  config.json
 │   └── references/                   # content_methodology / style_examples
@@ -406,6 +415,15 @@ claude-skills-collection/
 ---
 
 ## 📝 更新日志
+
+### v3.1.0 (2026-08-13)
+
+**写作 skill 去重 —— 消除路由歧义**
+
+- 🔀 **`vibe-writer` 并入 `vibe-writer-pro`**：前者自称"vibe-writer-pro 的轻量版"，触发词却与后者高度重叠（两边都含"全流程写作"），Agent 实际是在两者间随机二选一。它的四个参考文件已被全面取代——尤其配图部分，`vibe-writer-pro` 有每 500-700 字一张的硬密度下限和 10 类配图决策表，而 `visual_guide.md` 还停在 Nano Banana / Unsplash 那一代
+- 🧭 **新增「写作时该用哪个」路由表**，按"你手上有什么"分流五个写作相关 skill
+- ✏️ `vibe-writer-pro` 与 `khazix-writer` 的 description 加入互斥路由说明：前者管"从零到发布"，后者管"素材进、成稿出"。`khazix-writer` 不再抢"公众号文章""长文写作"这类通用触发词
+- 📦 `vibe-writing` 插件从 7 个 skill 变为 6 个。`ai-proofreading`（审校）和 `content-converter`（分发）**保持独立**——它们是接在成稿之后的不同工序，塞进写作 skill 只会让本已 16.9k token 的调用成本更高
 
 ### v3.0.0 (2026-08-13)
 

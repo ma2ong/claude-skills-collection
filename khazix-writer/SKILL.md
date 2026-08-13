@@ -1,11 +1,13 @@
 ---
 name: khazix-writer
 description: |
-  卡兹克公众号长文写作 Skill。
+  卡兹克文风的单篇长文写作 Skill。**素材进、成稿出**，不做选题、不做配图、不做发布。
   包含完整的写作风格规则、四层自检体系、内容方法论和风格示例库。
   定位："有见识的普通人在认真聊一件打动他的事。"
-  适用：给定 PDF/brief/链接/素材，转化为 4000-8000 字完整文章。
-  触发关键词：卡兹克风格、长文写作、公众号文章、khazix writer
+  适用：已经有 PDF / brief / 链接 / 素材，要一篇 4000-8000 字的成稿。
+  触发关键词：卡兹克风格、卡兹克文风、khazix writer、按这份素材写一篇长文。
+  路由：**只在用户点名卡兹克文风、或已有完整素材只要成稿时用本 skill**。
+  需要从选题一路做到发布（含配图和推草稿）用 vibe-writer-pro。
 source: https://github.com/KKKKhazix/khazix-skills
 author: KKKKhazix
 installed_at: 2026-04-08

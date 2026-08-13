@@ -1,8 +1,0 @@
-{
-  "name": "vibe-writer",
-  "version": "1.1.0",
-  "status": "stable",
-  "description": "基础写作助手，vibe-writer-pro 的轻量版",
-  "dependencies": ["ai-proofreading", "hotspot-collector", "evidence-researcher"],
-  "updated": "2026-08-04"
-}
