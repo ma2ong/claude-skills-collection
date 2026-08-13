@@ -10,6 +10,7 @@
 | **✍️ khazix-writer** | 卡兹克风格、公众号长文 | 卡兹克公众号长文写作专版，4000-8000字，五种内容原型，活人感优先 |
 | **🎯 ai-topic-generator** | 开始选题生成、采集热点 | 全自动选题系统：热点采集 → 选题生成 → 证据包研究 → 质量审核 |
 | **hotspot-collector** | 采集热点、全网热点 | 多平台热点采集，互动量加权评分 + Top评论挖掘 |
+| **aihot** | AI 日报、今天 AI 圈有什么 | 调 aihot.virxact.com 公开 API 拉中文 AI 资讯，无需 API Key |
 | **topic-generator** | 选题、生成选题 | 基于热点生成高质量选题，支持评论层挖角 + COMPARISON对比选题模式 |
 | **evidence-researcher** | 补证据、找来源、研究包 | 为选题补齐一手来源、数据、反方观点和风险提示 |
 | **topic-reviewer** | 审核选题、选题质量 | 5维度审核 + 内容可做性诊断 + 证据包门槛 |
@@ -269,13 +270,16 @@ done
 #### 7. social-card-generator - 社交卡片与封面生成器
 生成微信公众号 `21:9 + 1:1` 封面组合、小红书 `1080 x 1440` 卡片组，并检查尺寸、溢出、短标题和缩略图可读性。
 
-#### 8. obsidian-exporter - Obsidian 导出器
-将选题数据导出到 Obsidian 知识库，格式化为 Markdown。
+#### 8. aihot - AI 资讯查询
+直接调用 [aihot.virxact.com](https://aihot.virxact.com) 的公开匿名 API 拉当日 AI 资讯，整理成中文简报。无需 API Key，`hotspot-collector` 会把它作为高优先信源调用。
 
-#### 9. content-converter - 分发助手
+#### 9. obsidian-exporter - Obsidian 导出器
+将选题数据导出到 Obsidian 知识库，格式化为 Markdown。Vault 路径按 `OBSIDIAN_VAULT` 环境变量 → `config.json` 的 `vault_path` → 询问用户的顺序解析。
+
+#### 10. content-converter - 分发助手
 将长文浓缩并改写成社交媒体内容（X/微博/小红书/知乎）。
 
-#### 8. personal-knowledge-search - 外脑
+#### 11. personal-knowledge-search - 外脑
 搜索个人素材库，获取真实案例和风格参考。
 
 ---
@@ -312,55 +316,72 @@ done
 
 ## 📁 文件结构
 
+> 下面是仓库的真实结构，与 `git ls-files` 一致。
+
 ```
 claude-skills-collection/
-├── README.md                        # 本文件
-├── output/                          # 选题系统输出目录
-│   ├── daily_hotspots/              # 每日热点数据（含 engagement + top_comments）
-│   ├── generated_topics/            # 生成的选题（含 topic_type + comparison_subjects）
-│   ├── evidence_packs/              # 写作证据包
-│   ├── review_reports/              # 审核报告
-│   └── social-cards/                # 封面与社交卡片
-├── ai-topic-generator/              # AI选题生成系统（总控）
+├── .claude-plugin/marketplace.json   # 插件市场清单：topic-radar + vibe-writing
+├── README.md
+├── LICENSE                           # MIT
+├── THIRD_PARTY_NOTICES.md            # 第三方来源与致谢
+├── output/                           # 选题系统输出目录（仓库内只放 example.json）
+│   ├── daily_hotspots/
+│   ├── generated_topics/
+│   └── review_reports/
+│
+│   ── 选题段（topic-radar）──────────────────────
+├── ai-topic-generator/               # 总控：一句话跑完全流程
 │   └── SKILL.md
-├── hotspot-collector/               # 热点采集器（互动量加权 + Top评论）
+├── hotspot-collector/                # 热点采集（互动量加权 + Top评论）
+│   ├── SKILL.md  config.json
+│   └── references/research-routing.md
+├── aihot/                            # AI 资讯 API 查询
+│   └── SKILL.md  config.json
+├── topic-generator/                  # 选题生成（评论挖角 + COMPARISON）
+│   ├── SKILL.md  config.json
+│   └── memory/preferences.md
+├── evidence-researcher/              # 证据包研究
 │   └── SKILL.md
-├── topic-generator/                 # 选题生成器（评论挖角 + COMPARISON模式）
-│   ├── SKILL.md
-│   └── memory/
-│       └── preferences.md
-├── topic-reviewer/                  # 选题审核官（5维度 + 证据包门槛）
+├── topic-reviewer/                   # 选题审核（5维度 + 证据门槛）
+│   └── SKILL.md  config.json
+├── obsidian-exporter/                # 导出到 Obsidian
+│   └── SKILL.md  config.json
+│
+│   ── 写作段（vibe-writing）─────────────────────
+├── vibe-writer-pro/                  # 主力写作助手
+│   ├── SKILL.md  config.json  EXAMPLE.md
+│   ├── references/                   # 8 个：ai_fingerprints / chinese-rhythm /
+│   │                                 # hook_principles / publish_preflight /
+│   │                                 # title_formulas / vibe_style_guide /
+│   │                                 # viral-framework / workflow_rules
+│   ├── scripts/check_prose.py        # 确定性文风检查
+│   └── memory/preferences.md
+├── vibe-writer/                      # 轻量版
+│   ├── SKILL.md  config.json
+│   ├── references/                   # anti_ai_checklist / style_guide /
+│   │                                 # visual_guide / workflow_rules
+│   └── memory/preferences.md
+├── khazix-writer/                    # 卡兹克风格长文（方法论来源见 THIRD_PARTY_NOTICES）
+│   ├── SKILL.md  config.json
+│   └── references/                   # content_methodology / style_examples
+├── ai-proofreading/                  # AI 味审校
+│   ├── SKILL.md  config.json
+│   ├── references/                   # finalize-workflow / host-profile-workflow /
+│   │                                 # scenario-presets
+│   ├── scripts/anti_ai_gate.py       # 确定性 AI 味闸门（含单元测试）
+│   └── memory/preferences.md
+├── social-card-generator/            # 封面与卡片
 │   └── SKILL.md
-├── evidence-researcher/             # 写作证据包研究员
-│   └── SKILL.md
-├── social-card-generator/           # 社交卡片与封面生成器
-│   └── SKILL.md
-├── obsidian-exporter/               # Obsidian导出器
-│   └── SKILL.md
-├── vibe-writer-pro/                 # 终极全流程写作助手（卡兹克方法论深度落地）
-│   ├── SKILL.md
-│   └── references/
-│       ├── viral-framework.md       # 公众号爆款7维评估框架
-│       ├── vibe_style_guide.md      # L1-L4四层自检清单
-│       └── workflow_rules.md        # Rule 6 HKR质检 + Rule 7 AI角色边界
-├── khazix-writer/                   # 卡兹克公众号长文写作专版
-│   ├── SKILL.md
-│   └── references/
-│       ├── content_methodology.md   # HKR框架 + 五种内容原型
-│       └── style_examples.md        # 风格对比示例库
-├── vibe-writer/                     # 标准写作助手（四层自检 + HKR）
-│   ├── SKILL.md
-│   └── references/
-├── ai-proofreading/                 # AI味审校（四遍审校 + 7维传播力）
-│   ├── SKILL.md
-│   ├── references/
-│   ├── scripts/
-│   └── assets/
-├── content-converter/               # 内容转换
-│   └── SKILL.md
-└── personal-knowledge-search/       # 素材搜索
-    └── SKILL.md
+├── content-converter/                # 多平台改写分发
+│   ├── SKILL.md  config.json
+│   ├── references/xiaohongshu_tag_database.md
+│   └── memory/preferences.md
+└── personal-knowledge-search/        # 个人素材库检索
+    ├── SKILL.md  config.json
+    └── memory/preferences.md
 ```
+
+**确定性资产**：`vibe-writer-pro/scripts/check_prose.py` 和 `ai-proofreading/scripts/anti_ai_gate.py`（带 `test_anti_ai_gate.py`）是靠代码而不是靠模型自觉执行的检查，这是本仓库和纯提示词写作 skill 的主要区别。
 
 ---
 
