@@ -71,12 +71,12 @@ status: 待筛选
 
 1. **接收输入**:
    - 选题文件路径 (e.g., `output/generated_topics/2026-01-29.json`)
-   - Obsidian Vault 根目录 (用户配置: `D:\Program Files\Obsidian`)
+   - Obsidian Vault 根目录。按以下顺序取：环境变量 `OBSIDIAN_VAULT` → 本 skill 目录下的 `config.json` 里的 `vault_path` → 都没有就问用户要一次，并提示他设成环境变量以后免问
 2. **数据处理**:
    - 读取 JSON。
    - 按照模板渲染 Markdown 字符串。
 3. **文件写入**:
-   - 检查 `D:\Program Files\Obsidian\选题池\` 是否存在，不存在则创建。
+   - 检查 `<vault>/选题池/` 是否存在，不存在则创建。
    - 写入文件 `2026-01-29_每日选题.md`。
 4. **反馈**:
    - 输出 "✅ 已导出到 Obsidian: [文件绝对路径]"
