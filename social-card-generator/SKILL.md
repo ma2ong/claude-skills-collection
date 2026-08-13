@@ -119,6 +119,77 @@ Claude 开始给 Agent 装“记忆”和“自评”了
 7. 用 Playwright 或浏览器截图工具渲染 PNG
 8. 检查尺寸、文字溢出、缩略图可读性
 
+## AI 生图后端
+
+当视觉资产需要非结构化概念图、氛围图、插画或参考图改绘时，调用 `baoyu-imagine` 作为默认生图后端。`baoyu-image-gen` 已迁移到 `baoyu-imagine`，不要再调用废弃入口。
+
+### 使用边界
+
+- 微信主封面：优先 `baoyu-imagine`，`21:9`，`2k`
+- 微信方封面：可以基于同一视觉 prompt 重新生成 `1:1`，不要直接裁切长标题
+- 文中概念图：优先 `baoyu-imagine`，`16:9`，每篇 1-3 张
+- 信息图/数据图/推文卡片：继续用 HTML + Playwright 渲染，避免 AI 图编造事实
+- 产品界面/代码/官网：优先真实截图，不用 AI 生图替代
+
+### 调用前检查
+
+必须先检查以下配置，任一存在即可（Windows PowerShell 写法，其他平台查同名路径）：
+
+```powershell
+Test-Path .baoyu-skills\baoyu-imagine\EXTEND.md
+Test-Path "$HOME\.config\baoyu-skills\baoyu-imagine\EXTEND.md"
+Test-Path "$HOME\.baoyu-skills\baoyu-imagine\EXTEND.md"
+```
+
+没有 EXTEND 配置就**不生成图片**，先提示用户完成 provider / model / API key 配置。不要静默跳过生图然后交付一套没有图的卡片。
+
+如果用户没装 `baoyu-imagine`：走 HTML + Playwright 渲染的纯排版方案，并明确告诉用户「概念图/氛围图这一档缺失，装了生图后端可以补上」。
+
+### 输出目录约定
+
+```text
+output/social-cards/YYYY-MM-DD-<slug>/
+├── prompts/
+│   ├── cover.md
+│   ├── square-cover.md
+│   └── inline-01.md
+├── batch.json
+├── cover-21x9.png
+├── cover-1x1.png
+└── inline-01.png
+```
+
+### Batch 模板
+
+```json
+{
+  "jobs": 3,
+  "tasks": [
+    {
+      "id": "cover-21x9",
+      "promptFiles": ["prompts/cover.md"],
+      "image": "cover-21x9.png",
+      "ar": "21:9",
+      "quality": "2k"
+    },
+    {
+      "id": "cover-1x1",
+      "promptFiles": ["prompts/square-cover.md"],
+      "image": "cover-1x1.png",
+      "ar": "1:1",
+      "quality": "2k"
+    },
+    {
+      "id": "inline-01",
+      "promptFiles": ["prompts/inline-01.md"],
+      "image": "inline-01.png",
+      "ar": "16:9",
+      "quality": "2k"
+    }
+  ]
+}
+```
+
 ## QA 检查
 
 - 微信主封面是 `2100 x 900`

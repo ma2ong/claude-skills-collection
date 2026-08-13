@@ -34,3 +34,4 @@
 
 - `opencli` — 社交/内容站点的命令行访问
 - `guizang-social-card-skill` — 社交卡片配图（`content-converter` 中作为推荐项提及）
+- `baoyu-imagine` — `social-card-generator` 的默认 AI 生图后端；未安装时自动降级为 HTML + Playwright 纯排版方案
