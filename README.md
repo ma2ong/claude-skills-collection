@@ -407,6 +407,17 @@ claude-skills-collection/
 
 ## 📝 更新日志
 
+### v3.0.0 (2026-08-13)
+
+**分发方式变更 —— 从 clone 改为插件市场**
+
+- 🔧 **修复安装即失效**：此前 README 让用户 `git clone` 到 `~/.claude/skills`，装出的目录没有根 `SKILL.md`，14 个 skill 一个都加载不了。新增 `.claude-plugin/marketplace.json`，拆成 `topic-radar`（选题段 7 个）+ `vibe-writing`（写作段 7 个），各一条命令装完
+- 🔓 仓库转为 public，补 `LICENSE`（MIT）与 `THIRD_PARTY_NOTICES.md`（khazix-writer 方法论来源、aihot 的 Virxact API、可选外部工具）
+- 🧹 清除私有内容：删掉硬编码本机路径的一次性脚本；`obsidian-exporter` 的 vault 路径改为 `OBSIDIAN_VAULT` 环境变量 → `config.json` → 询问；`publish_preflight.md` 里指向个人凭证位置和私有脚本的段落改写为通用描述
+- 📄 README 打假：文件树曾列出两个不存在的输出目录和一个不存在的 assets 目录、漏掉 `aihot`、少报了参考文件与脚本、"其他 Skills" 有两个条目都编号 8 —— 全部按实际内容重写
+- 🖼️ **输出示例换成真实产物**：README 里三份编造的 JSON 换成 2026-02-06 真实运行结果，全文入库可点开，一条热点贯穿全程（hs-001 → topic-001 → 91 分 PASS）
+- 🎨 `social-card-generator` 新增「AI 生图后端」规格：`baoyu-imagine` 为默认后端、按资产类型划定使用边界（概念图走 AI、事实类走 HTML+Playwright、产品界面用真实截图）、调用前配置检查、缺后端时降级为纯排版并明确告知
+
 ### v2.2.0 (2026-04-08)
 
 - ✨ **深度整合卡兹克写作方法论**，不再停留于"声称融合"
